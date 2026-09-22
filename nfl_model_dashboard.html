@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>NFL Model Dashboard</title>
+<style>
+:root{
+  --bg:#07111f;--card:#0d1a2b;--card2:#111f32;--text:#eef5ff;--muted:#91a4bd;
+  --line:#203249;--good:#25d366;--warn:#ffd166;--bad:#ff6b6b;--accent:#5aa9ff;
+  --shadow:0 12px 32px rgba(0,0,0,.22);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#06101d 0%,#091525 100%);color:var(--text)}
+button,input,select{font:inherit}
+.app{max-width:1100px;margin:0 auto;padding:env(safe-area-inset-top) 14px calc(24px + env(safe-area-inset-bottom))}
+.top{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.93);backdrop-filter:blur(12px);padding:12px 0 10px;border-bottom:1px solid var(--line)}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:#fff;color:#07111f;display:grid;place-items:center;font-weight:900;font-size:14px}
+h1{font-size:19px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.pill{padding:8px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:12px;white-space:nowrap}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:10px 6px;border-radius:11px}
+nav button.active{color:var(--text);background:#16283f;border-color:#31557f}
+section{display:none;padding-top:14px}section.active{display:block}
+.hero{background:linear-gradient(135deg,#12243b,#0d1a2b);border:1px solid #29435f;border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.hero h2{margin:0 0 6px;font-size:21px}.hero p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.kpi{background:rgba(255,255,255,.03);border:1px solid var(--line);padding:11px;border-radius:13px}
+.kpi b{font-size:19px;display:block}.kpi span{font-size:11px;color:var(--muted)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.controls input,.controls select{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 11px;min-width:0;flex:1}
+.controls input[type=file]{padding:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.gamehead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.match{font-weight:800;font-size:16px}.time{font-size:11px;color:var(--muted);margin-top:3px}
+.signal{border-radius:999px;padding:6px 9px;font-size:11px;font-weight:800}
+.signal.strong{background:rgba(37,211,102,.15);color:var(--good);border:1px solid rgba(37,211,102,.3)}
+.signal.qualified{background:rgba(255,209,102,.12);color:var(--warn);border:1px solid rgba(255,209,102,.25)}
+.signal.pass{background:rgba(145,164,189,.10);color:var(--muted);border:1px solid var(--line)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}
+.metric{background:var(--card2);padding:9px;border-radius:10px}.metric span{display:block;color:var(--muted);font-size:10px}.metric b{font-size:14px}
+.pickbar{margin-top:12px;border-top:1px solid var(--line);padding-top:11px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.pick{font-size:15px;font-weight:900}.edge{color:var(--good);font-size:12px;font-weight:700}
+.reason{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
+.table{width:100%;overflow:auto;border:1px solid var(--line);border-radius:14px}.table table{border-collapse:collapse;width:100%;min-width:760px}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);font-size:12px;text-align:left;white-space:nowrap}.table th{color:var(--muted);font-weight:600;background:#0a1625}
+.empty{padding:26px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+.note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+.btn{border:1px solid var(--line);background:#16283f;color:var(--text);border-radius:10px;padding:10px 12px}
+.small{font-size:11px;color:var(--muted)}
+@media(max-width:700px){
+ .kpis{grid-template-columns:repeat(2,1fr)}
+ .metrics{grid-template-columns:repeat(2,1fr)}
+ .pill{display:none}
+ .hero h2{font-size:18px}
+}
+@media(min-width:701px){
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cards .card{margin:0}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">NFL</div>
+        <div><h1>NFL Model</h1><div class="sub" id="status">V3 dashboard • data feed not loaded</div></div>
+      </div>
+      <div class="pill">62% target</div>
+    </div>
+    <nav>
+      <button data-tab="picks" class="active">Picks</button>
+      <button data-tab="games">All Games</button>
+      <button data-tab="record">Record</button>
+      <button data-tab="settings">Data</button>
+    </nav>
+  </div>
+
+  <section id="picks" class="active">
+    <div class="hero">
+      <h2>Weekly Picks</h2>
+      <p>ML and ATS signals from the V3 engine. Strong signals require the configured model edge thresholds; everything else is a pass.</p>
+      <div class="kpis">
+        <div class="kpi"><b id="bestCount">—</b><span>Qualified picks</span></div>
+        <div class="kpi"><b id="strongCount">—</b><span>Strong signals</span></div>
+        <div class="kpi"><b id="bestMl">—</b><span>Best ML edge</span></div>
+        <div class="kpi"><b id="bestAts">—</b><span>Best ATS edge</span></div>
+      </div>
+    </div>
+    <div class="controls">
+      <input id="search" placeholder="Search team...">
+      <select id="filter"><option value="all">All signals</option><option value="STRONG">Strong</option><option value="QUALIFIED">Qualified</option><option value="PASS">Pass</option></select>
+    </div>
+    <div id="pickCards" class="cards"></div>
+  </section>
+
+  <section id="games">
+    <div class="hero">
+      <h2>All Games</h2>
+      <p>Current slate and market lines. Model fields populate automatically when a V3 CSV/JSON output is imported.</p>
+    </div>
+    <div id="gamesTable"></div>
+  </section>
+
+  <section id="record">
+    <div class="hero">
+      <h2>Model Record</h2>
+      <p>The dashboard separates the five-year straight-up validation from ATS performance. It never shows a 62%+ claim unless that result is present in the actual backtest file.</p>
+      <div class="kpis">
+        <div class="kpi"><b id="btAcc">—</b><span>2021–2025 SU</span></div>
+        <div class="kpi"><b id="btGames">—</b><span>Backtest games</span></div>
+        <div class="kpi"><b id="btAts">—</b><span>ATS cover rate</span></div>
+        <div class="kpi"><b id="curAcc">—</b><span>Current season</span></div>
+      </div>
+    </div>
+    <div id="seasonTable"></div>
+  </section>
+
+  <section id="settings">
+    <div class="hero">
+      <h2>Data Feed</h2>
+      <p>Load the CSV/JSON produced by <code>nfl_model_v3.py</code>. The dashboard runs the display layer in your browser; the Python engine remains the source of the V3 predictions.</p>
+      <div class="controls">
+        <input id="pickFile" type="file" accept=".csv,.json">
+        <input id="backtestFile" type="file" accept=".csv,.json">
+      </div>
+      <button class="btn" id="resetBtn">Reset to current Week 2 slate</button>
+      <div class="note">
+        Current market lines below are a snapshot from FanDuel/Bet365 reporting for NFL Week 2, 2026 and can change before kickoff.
+        For live model picks, run the V3 engine with your odds API key and import <code>nfl_model_v3_current_picks.csv</code>.
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const CURRENT_SLATE = [
+ {id:"PHI-TEN",away:"PHI",home:"TEN",time:"Sun 20 Sep • 1:00 PM ET",spread:"TEN +7",homeSpread:7,mlAway:-350,mlHome:280,total:39.5},
+ {id:"PIT-NE",away:"PIT",home:"NE",time:"Sun 20 Sep • 1:00 PM ET",spread:"NE -4.5",homeSpread:-4.5,mlAway:198,mlHome:-240,total:41.5},
+ {id:"MIN-CHI",away:"MIN",home:"CHI",time:"Sun 20 Sep • 1:00 PM ET",spread:"CHI -4.5",homeSpread:-4.5,mlAway:188,mlHome:-220,total:48.5},
+ {id:"CAR-ATL",away:"CAR",home:"ATL",time:"Sun 20 Sep • 1:00 PM ET",spread:"ATL +2.5",homeSpread:2.5,mlAway:-134,mlHome:114,total:43.5},
+ {id:"GB-NYJ",away:"GB",home:"NYJ",time:"Sun 20 Sep • 1:00 PM ET",spread:"NYJ +3.5",homeSpread:3.5,mlAway:-174,mlHome:146,total:44.5},
+ {id:"NO-BAL",away:"NO",home:"BAL",time:"Sun 20 Sep • 1:00 PM ET",spread:"BAL -8.5",homeSpread:-8.5,mlAway:320,mlHome:-405,total:46.5},
+ {id:"CIN-HOU",away:"CIN",home:"HOU",time:"Sun 20 Sep • 1:00 PM ET",spread:"HOU -2.5",homeSpread:-2.5,mlAway:126,mlHome:-148,total:45.5},
+ {id:"CLE-TB",away:"CLE",home:"TB",time:"Sun 20 Sep • 1:00 PM ET",spread:"TB -8.5",homeSpread:-8.5,mlAway:360,mlHome:-460,total:41.5},
+ {id:"JAX-DEN",away:"JAX",home:"DEN",time:"Sun 20 Sep • 4:05 PM ET",spread:"DEN -2.5",homeSpread:-2.5,mlAway:126,mlHome:-148,total:45.5},
+ {id:"LV-LAC",away:"LV",home:"LAC",time:"Sun 20 Sep • 4:05 PM ET",spread:"LAC -6.5",homeSpread:-6.5,mlAway:250,mlHome:-310,total:43.5},
+ {id:"SEA-ARI",away:"SEA",home:"ARI",time:"Sun 20 Sep • 4:25 PM ET",spread:"ARI +4.5",homeSpread:4.5,mlAway:-198,mlHome:166,total:41.5},
+ {id:"MIA-SF",away:"MIA",home:"SF",time:"Sun 20 Sep • 4:25 PM ET",spread:"SF -13.5",homeSpread:-13.5,mlAway:640,mlHome:-950,total:45.5},
+ {id:"WAS-DAL",away:"WAS",home:"DAL",time:"Sun 20 Sep • 4:25 PM ET",spread:"DAL -3.5",homeSpread:-3.5,mlAway:172,mlHome:-205,total:50.5},
+ {id:"IND-KC",away:"IND",home:"KC",time:"Sun 20 Sep • 8:20 PM ET",spread:"KC -6.5",homeSpread:-6.5,mlAway:265,mlHome:-330,total:46.5},
+ {id:"NYG-LAR",away:"NYG",home:"LAR",time:"Mon 21 Sep • 8:15 PM ET",spread:"LAR -7.5",homeSpread:-7.5,mlAway:280,mlHome:-350,total:47.5},
+ {id:"DET-BUF",away:"DET",home:"BUF",time:"Thu 17 Sep • FINAL",spread:"BUF -4.5",homeSpread:-4.5,mlAway:null,mlHome:null,total:54.5}
+];
+
+let picks = [];
+let backtest = null;
+
+function moneyProb(x){ if(x==null || isNaN(x)) return null; x=Number(x); return x>0 ? 100/(x+100) : (-x)/(-x+100); }
+function noVig(a,b){ const pa=moneyProb(a), pb=moneyProb(b); if(pa==null||pb==null) return [null,null]; const z=pa+pb; return [pa/z,pb/z];}
+function fmtPct(x){return x==null||isNaN(x)?"—":(100*Number(x)).toFixed(1)+"%"}
+function fmtEdge(x){return x==null||isNaN(x)?"—":(x>=0?"+":"")+Number(x).toFixed(1)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
+
+function normalizeRows(rows){
+  return rows.map(r=>{
+    const d={...r};
+    d.home_team=d.home_team||d.home||d.homeTeam;
+    d.away_team=d.away_team||d.away||d.awayTeam;
+    d.game_id=d.game_id||d.id||`${d.away_team}-${d.home_team}`;
+    d.spread_home=Number(d.spread_home ?? d.home_spread ?? d.spread_line ?? d.homeSpread);
+    d.home_win_prob=Number(d.home_win_prob);
+    d.away_win_prob=Number(d.away_win_prob);
+    d.projected_margin=Number(d.projected_margin);
+    d.ml_edge=Number(d.ml_edge);
+    d.ats_edge_points_home=Number(d.ats_edge_points_home);
+    d.confidence=Number(d.confidence);
+    d.signal_strength=d.signal_strength||"PASS";
+    d.ml_action=d.ml_action||"PASS ML";
+    d.ats_action=d.ats_action||"PASS ATS";
+    return d;
+  });
+}
+
+function parseCSV(text){
+  const lines=text.trim().split(/\r?\n/); if(lines.length<2) return [];
+  const headers=lines[0].split(",").map(x=>x.trim());
+  return lines.slice(1).map(line=>{
+    const vals=[]; let cur="", q=false;
+    for(let i=0;i<line.length;i++){ const c=line[i]; if(c==='"'){ q=!q; } else if(c===','&&!q){ vals.push(cur); cur=""; } else cur+=c;}
+    vals.push(cur);
+    const o={}; headers.forEach((h,i)=>o[h]=(vals[i]??"").trim().replace(/^"|"$/g,"")); return o;
+  });
+}
+function loadFile(file, cb){
+  const rd=new FileReader();
+  rd.onload=()=>{ try{ const txt=rd.result; const data=file.name.endsWith(".json")?JSON.parse(txt):parseCSV(txt); cb(data); }catch(e){alert("Could not read that file: "+e.message)} };
+  rd.readAsText(file);
+}
+
+function mergeWithSlate(rows){
+  const byKey={}; rows.forEach(r=>byKey[`${r.away_team}-${r.home_team}`]=r);
+  return CURRENT_SLATE.map(s=>{
+    const r=byKey[`${s.away}-${s.home}`];
+    if(!r) return {...s,signal_strength:"PASS",ml_action:"PASS ML",ats_action:"PASS ATS"};
+    return {...s,...r};
+  });
+}
+
+function pickName(r, side){
+  return side==="home"?r.home_team:r.away_team;
+}
+function marketPick(r){
+  if(!isNaN(r.spread_home)) return r.spread_home<0?r.home_team+" "+r.spread_home:r.away_team+" +"+Math.abs(r.spread_home);
+  return "—";
+}
+function buildReason(r){
+  const bits=[];
+  if(Number.isFinite(r.confidence)) bits.push(`model win probability ${fmtPct(Math.max(r.home_win_prob||0,r.away_win_prob||0))}`);
+  if(Number.isFinite(r.projected_margin)) bits.push(`projected margin ${r.projected_margin>=0?"+":""}${r.projected_margin.toFixed(1)}`);
+  if(Number.isFinite(r.ml_edge)) bits.push(`ML edge ${fmtPct(r.ml_edge)}`);
+  if(Number.isFinite(r.ats_edge_points_home)) bits.push(`ATS edge ${fmtEdge(r.ats_edge_points_home)} pts`);
+  if(r.weather_severity>0) bits.push("weather adjustment active");
+  return bits.length?bits.join(" • "):"V3 output not loaded for this game.";
+}
+
+function renderPicks(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const f=document.getElementById("filter").value;
+  const all=mergeWithSlate(picks);
+  const visible=all.filter(r=>{
+    const match=`${r.away_team} ${r.home_team}`.toLowerCase().includes(q);
+    const ok=f==="all"||r.signal_strength===f;
+    return match&&ok;
+  });
+  const qualified=all.filter(r=>r.signal_strength==="QUALIFIED"||r.signal_strength==="STRONG");
+  const strong=all.filter(r=>r.signal_strength==="STRONG");
+  const mlEdges=all.map(r=>Number(r.ml_edge)).filter(Number.isFinite);
+  const ats=all.map(r=>Math.abs(Number(r.ats_edge_points_home))).filter(Number.isFinite);
+  document.getElementById("bestCount").textContent=qualified.length||"0";
+  document.getElementById("strongCount").textContent=strong.length||"0";
+  document.getElementById("bestMl").textContent=mlEdges.length?fmtPct(Math.max(...mlEdges)):"—";
+  document.getElementById("bestAts").textContent=ats.length?fmtEdge(Math.max(...ats))+" pts":"—";
+  const holder=document.getElementById("pickCards");
+  if(!visible.length){holder.innerHTML=`<div class="empty">No games match your filter.</div>`;return}
+  holder.innerHTML=visible.map(r=>{
+    const sig=(r.signal_strength||"PASS").toLowerCase();
+    const hasV3=picks.some(p=>p.game_id===r.game_id || `${p.away_team}-${p.home_team}`===`${r.away}-${r.home}`);
+    let pick="PASS";
+    if(hasV3){
+      if(r.ml_action==="BET ML") pick=(r.pick_home===1?r.home_team:r.away_team)+" ML";
+      else if(r.ats_action!=="PASS ATS") pick=r.ats_action.replace("BET HOME SPREAD",r.home_team+" "+r.spread_home).replace("BET AWAY SPREAD",r.away_team+" "+(-r.spread_home));
+    }
+    return `<div class="card">
+      <div class="gamehead">
+        <div><div class="match">${esc(r.away_team)} @ ${esc(r.home_team)}</div><div class="time">${esc(r.time||r.gameday||"")}</div></div>
+        <div class="signal ${sig}">${esc(r.signal_strength||"PASS")}</div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span>Model win %</span><b>${hasV3?fmtPct(r.pick_home===1?r.home_win_prob:r.away_win_prob):"—"}</b></div>
+        <div class="metric"><span>Confidence</span><b>${hasV3?fmtPct(r.confidence):"—"}</b></div>
+        <div class="metric"><span>Projected margin</span><b>${hasV3&&Number.isFinite(r.projected_margin)?(r.projected_margin>=0?"+":"")+r.projected_margin.toFixed(1):"—"}</b></div>
+        <div class="metric"><span>Market</span><b>${esc(r.spread||marketPick(r))}</b></div>
+      </div>
+      <div class="pickbar"><div class="pick">${esc(pick)}</div><div class="edge">${hasV3?buildReason(r):"Load V3 current picks CSV to populate model signals."}</div></div>
+    </div>`;
+  }).join("");
+}
+
+function renderGames(){
+  const all=mergeWithSlate(picks);
+  document.getElementById("gamesTable").innerHTML=`<div class="table"><table><thead><tr>
+  <th>Game</th><th>Spread</th><th>Home ML</th><th>Away ML</th><th>Total</th><th>V3 Win %</th><th>V3 ATS Edge</th><th>Signal</th>
+  </tr></thead><tbody>${
+    all.map(r=>`<tr>
+      <td>${esc(r.away_team)} @ ${esc(r.home_team)}</td>
+      <td>${esc(r.spread||marketPick(r))}</td>
+      <td>${r.mlHome??"—"}</td><td>${r.mlAway??"—"}</td><td>${r.total??"—"}</td>
+      <td>${picks.length?fmtPct(r.pick_home===1?r.home_win_prob:r.away_win_prob):"—"}</td>
+      <td>${picks.length?fmtEdge(r.ats_edge_points_home):"—"}</td>
+      <td>${esc(r.signal_strength||"PASS")}</td>
+    </tr>`).join("")
+  }</tbody></table></div>`;
+}
+
+function renderBacktest(){
+  if(!backtest){ document.getElementById("seasonTable").innerHTML='<div class="empty">Load a backtest CSV/JSON from the V3 engine to populate this section.</div>'; return;}
+  const rows=Array.isArray(backtest)?backtest:(backtest.seasons||[]);
+  if(backtest.straight_up_accuracy!=null){
+    document.getElementById("btAcc").textContent=fmtPct(backtest.straight_up_accuracy);
+    document.getElementById("btGames").textContent=backtest.games??"—";
+    document.getElementById("btAts").textContent=fmtPct(backtest.ats_rate);
+  }
+  document.getElementById("seasonTable").innerHTML=rows.length?`<div class="table"><table><thead><tr><th>Season</th><th>Games</th><th>SU</th><th>ATS</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.season}</td><td>${r.games??"—"}</td><td>${fmtPct(r.straight_up??r.straight_up_accuracy)}</td><td>${fmtPct(r.ATS??r.ats_rate)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="note">Backtest file loaded.</div>`;
+}
+
+function setData(rows){
+  picks=normalizeRows(rows); document.getElementById("status").textContent=`V3 feed loaded • ${picks.length} games`; renderPicks(); renderGames();
+}
+
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.tab).classList.add("active");
+});
+
+document.getElementById("search").oninput=renderPicks;
+document.getElementById("filter").onchange=renderPicks;
+document.getElementById("pickFile").onchange=e=>{if(e.target.files[0])loadFile(e.target.files[0],setData)};
+document.getElementById("backtestFile").onchange=e=>{if(e.target.files[0])loadFile(e.target.files[0],x=>{backtest=x;renderBacktest();})};
+document.getElementById("resetBtn").onclick=()=>{picks=[];backtest=null;document.getElementById("status").textContent="V3 dashboard • data feed not loaded";renderPicks();renderGames();renderBacktest();};
+
+setData([]);
+renderPicks(); renderGames(); renderBacktest();
+</script>
+</body>
+</html>
