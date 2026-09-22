@@ -1,0 +1,58 @@
+name: Update NFL Model
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run V3 model
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: au
+          ODDS_MARKETS: h2h,spreads,totals
+        run: python nfl_model_v3.py
+
+      - name: Convert output to dashboard feed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import pandas as pd
+
+          p = Path("nfl_model_v3_current_picks.csv")
+
+          if p.exists():
+              df = pd.read_csv(p)
+              df = df.replace([float("inf"), float("-inf")], None)
+              df = df.where(pd.notna(df), None)
+              Path("data/current_picks.json").write_text(
+                  json.dumps(df.to_dict(orient="records"), default=str)
+              )
+          else:
+              Path("data/current_picks.json").write_text("[]")
+          PY
+
+      - name: Publish feed
+        run: |
+          git config user.name "NFL Model Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/current_picks.json
+          git diff --cached --quiet || git commit -m "Update NFL model feed"
+          git push
