@@ -501,10 +501,16 @@ def moneyline_implied(p):
 
 
 def no_vig_probs(home_ml, away_ml):
-    a=moneyline_implied(home_ml); b=moneyline_implied(away_ml)
-    if not np.isfinite(a) or not np.isfinite(b): return (np.nan,np.nan)
-    z=a+b
-    return a/z,b/z
+    a=moneyline_implied(home_ml)
+    b=moneyline_implied(away_ml)
+    if not np.isfinite(a) or not np.isfinite(b):
+        return (np.nan, np.nan)
+    if a <= 0 or b <= 0:
+        return (np.nan, np.nan)
+    z = a + b
+    if z <= 0 or not np.isfinite(z):
+        return (np.nan, np.nan)
+    return a / z, b / z
 
 
 def odds_api_current(schedule, api_key=ODDS_API_KEY):
