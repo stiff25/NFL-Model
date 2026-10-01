@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>NFL Model V3</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#111827;background:#f3f4f6}
+*{box-sizing:border-box}body{margin:0}.wrap{max-width:760px;margin:auto;padding:12px}
+header{background:#111827;color:#fff;border-radius:18px;padding:18px;margin-bottom:12px}
+h1{margin:0 0 5px;font-size:24px}.sub{opacity:.8;font-size:13px}
+.status{margin-top:10px;font-size:12px;padding:8px 10px;border-radius:10px;background:#1f2937}
+.tabs{display:flex;gap:7px;margin-bottom:12px}.tab{border:0;border-radius:10px;padding:10px 12px;background:#e5e7eb;font-weight:700}
+.tab.active{background:#111827;color:#fff}
+.card{background:#fff;border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 1px 5px #0001}
+.game{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.teams{font-size:17px;font-weight:800}.muted{color:#6b7280;font-size:12px}
+.signal{font-weight:900;font-size:13px;padding:7px 9px;border-radius:9px;background:#e5e7eb;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.stat{background:#f3f4f6;border-radius:10px;padding:9px}.label{font-size:11px;color:#6b7280}.value{font-weight:800;margin-top:2px}
+.bet{background:#dcfce7}.qualified{background:#fef3c7}.strong{background:#dbeafe}
+.error{background:#fee2e2;color:#991b1b}
+button.refresh{width:100%;border:0;border-radius:12px;padding:12px;background:#111827;color:white;font-weight:800;margin-bottom:10px}
+.small{font-size:12px;line-height:1.45;color:#6b7280}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>NFL Model V3</h1>
+<div class="sub">Automatic live feed • Australian-region odds</div>
+<div id="status" class="status">Loading live feed…</div>
+</header>
+
+<button class="refresh" onclick="loadFeed()">Refresh now</button>
+<div class="tabs">
+<button class="tab active" onclick="showTab('picks',this)">Picks</button>
+<button class="tab" onclick="showTab('games',this)">All Games</button>
+<button class="tab" onclick="showTab('info',this)">Model</button>
+</div>
+
+<section id="picks"></section>
+<section id="games" class="hidden"></section>
+<section id="info" class="hidden">
+<div class="card">
+<h3>How the feed works</h3>
+<div class="small">
+The GitHub Actions workflow runs the V3 model automatically and writes the latest
+results to <b>data/current_picks.json</b>. This page reads that file directly.
+<br><br>
+ML uses model probability versus the no-vig sportsbook probability. ATS uses
+projected margin versus the current spread. Missing market data is shown as
+unavailable rather than being treated as zero.
+<br><br>
+The 62% figure is a target, not a guarantee or a claim that the live model
+currently achieves it.
+</div>
+</div>
+</section>
+</div>
+
+<script>
+let rows=[];
+
+function esc(x){
+ return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function num(x,d=1){
+ return x==null||!Number.isFinite(Number(x)) ? "—" : Number(x).toFixed(d);
+}
+function pct(x){
+ return x==null||!Number.isFinite(Number(x)) ? "—" : (Number(x)*100).toFixed(1)+"%";
+}
+function dateOnly(x){
+ const d=new Date(x);
+ return Number.isNaN(d.getTime()) ? esc(x) : d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+}
+function actionClass(s){
+ s=String(s||"PASS").toUpperCase();
+ return s==="STRONG"?"strong":s==="QUALIFIED"?"qualified":s.includes("BET")?"bet":"";
+}
+function card(r){
+ const signal=String(r.signal_strength||"PASS");
+ const ml=r.ml_action||"PASS ML", ats=r.ats_action||"PASS ATS";
+ const market = Number.isFinite(Number(r.spread_home))
+   ? (Number(r.spread_home)>0 ? `${esc(r.home_team)} +${num(r.spread_home,1)}` :
+      Number(r.spread_home)<0 ? `${esc(r.home_team)} ${num(r.spread_home,1)}` : "PK")
+   : "No spread";
+ return `<div class="card">
+   <div class="game">
+    <div><div class="teams">${esc(r.away_team)} @ ${esc(r.home_team)}</div><div class="muted">${dateOnly(r.gameday)}</div></div>
+    <div class="signal ${actionClass(signal)}">${esc(signal)}</div>
+   </div>
+   <div class="grid">
+    <div class="stat"><div class="label">Model pick</div><div class="value">${r.pick_home==1?esc(r.home_team):esc(r.away_team)}</div></div>
+    <div class="stat"><div class="label">Confidence</div><div class="value">${pct(r.confidence)}</div></div>
+    <div class="stat"><div class="label">Home win %</div><div class="value">${pct(r.home_win_prob)}</div></div>
+    <div class="stat"><div class="label">Projected margin</div><div class="value">${num(r.projected_margin,1)}</div></div>
+    <div class="stat"><div class="label">Market spread</div><div class="value">${market}</div></div>
+    <div class="stat"><div class="label">ATS edge</div><div class="value">${num(r.ats_edge_points_home,1)} pts</div></div>
+    <div class="stat"><div class="label">ML action</div><div class="value">${esc(ml)}</div></div>
+    <div class="stat"><div class="label">ATS action</div><div class="value">${esc(ats)}</div></div>
+   </div>
+   <div class="muted" style="margin-top:9px">ML edge: ${num(r.ml_edge,3)}</div>
+ </div>`;
+}
+function render(){
+ const sorted=[...rows].sort((a,b)=>new Date(a.gameday)-new Date(b.gameday));
+ const bets=sorted.filter(r=>String(r.signal_strength||"PASS")!=="PASS");
+ document.getElementById("picks").innerHTML=bets.length
+   ? bets.map(card).join("")
+   : `<div class="card"><b>No qualifying bets in the current feed.</b><div class="small" style="margin-top:6px">The model may be passing all games because the market edge thresholds are not met or sportsbook data is unavailable.</div></div>`;
+ document.getElementById("games").innerHTML=sorted.length
+   ? sorted.map(card).join("")
+   : `<div class="card">No upcoming games in the live feed.</div>`;
+}
+async function loadFeed(){
+ const status=document.getElementById("status");
+ status.textContent="Loading live feed…";
+ try{
+   const r=await fetch("./data/current_picks.json?ts="+Date.now(),{cache:"no-store"});
+   if(!r.ok) throw new Error("HTTP "+r.status);
+   const data=await r.json();
+   if(!Array.isArray(data)) throw new Error("Feed is not an array");
+   rows=data;
+   status.textContent=`V3 live feed • ${rows.length} games • updated ${new Date().toLocaleString()}`;
+   render();
+ }catch(e){
+   rows=[];
+   status.textContent="Live feed error: "+e.message;
+   document.getElementById("picks").innerHTML=`<div class="card error"><b>The live feed could not be loaded.</b><div class="small">${esc(e.message)}</div></div>`;
+   document.getElementById("games").innerHTML="";
+   console.error(e);
+ }
+}
+function showTab(id,btn){
+ ["picks","games","info"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));
+ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+}
+loadFeed();
+setInterval(loadFeed,600000);
+</script>
+</body>
+</html>
