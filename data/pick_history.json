@@ -71,7 +71,7 @@
     "ats_signal": "STRONG",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_CHI_GB",
@@ -81,8 +81,8 @@
     "home_team": "GB",
     "away_team": "CHI",
     "spread_home": 2.0,
-    "spread_price_home": -114.0,
-    "home_ml": 105.0,
+    "spread_price_home": -112.0,
+    "home_ml": 108.0,
     "away_ml": -130.0,
     "bookmakers_used": 11.0,
     "temp_f": 76.5,
@@ -98,9 +98,9 @@
     "projected_margin": -2.6092399008428195,
     "pickem_signal": "PASS",
     "pickem_action": "LOW CONFIDENCE",
-    "market_home_prob": 0.4632426988922458,
-    "market_away_prob": 0.5367573011077543,
-    "ml_edge": 0.0352050245412866,
+    "market_home_prob": 0.4596322941646683,
+    "market_away_prob": 0.5403677058353318,
+    "ml_edge": 0.0315946198137091,
     "ml_action": "PASS ML",
     "ats_edge_points_home": -0.6092399008428195,
     "ats_pick_home": 0.0,
@@ -108,7 +108,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_CIN_MIA",
@@ -118,7 +118,7 @@
     "home_team": "MIA",
     "away_team": "CIN",
     "spread_home": 6.5,
-    "spread_price_home": -105.0,
+    "spread_price_home": -106.0,
     "home_ml": 249.0,
     "away_ml": -312.0,
     "bookmakers_used": 11.0,
@@ -145,7 +145,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_CLE_NYJ",
@@ -154,9 +154,9 @@
     "gameday": "2026-10-11",
     "home_team": "NYJ",
     "away_team": "CLE",
-    "spread_home": -2.5,
+    "spread_home": -2.0,
     "spread_price_home": -110.5,
-    "home_ml": -131.5,
+    "home_ml": -130.0,
     "away_ml": 110.0,
     "bookmakers_used": 11.0,
     "temp_f": 64.9,
@@ -172,17 +172,17 @@
     "projected_margin": -0.6313855479059147,
     "pickem_signal": "PASS",
     "pickem_action": "LOW CONFIDENCE",
-    "market_home_prob": 0.5439771496109524,
-    "market_away_prob": 0.4560228503890475,
-    "ml_edge": 0.1055686515742209,
+    "market_home_prob": 0.5427435387673957,
+    "market_away_prob": 0.4572564612326044,
+    "ml_edge": 0.104335040730664,
     "ml_action": "PASS ML",
-    "ats_edge_points_home": -3.1313855479059147,
+    "ats_edge_points_home": -2.6313855479059147,
     "ats_pick_home": 0.0,
     "ats_pick": "CLE",
     "ats_signal": "STRONG",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_DEN_LAC",
@@ -219,7 +219,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_DET_ARI",
@@ -256,7 +256,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_HOU_TEN",
@@ -266,7 +266,7 @@
     "home_team": "TEN",
     "away_team": "HOU",
     "spread_home": 7.5,
-    "spread_price_home": -116.0,
+    "spread_price_home": -117.0,
     "home_ml": 300.0,
     "away_ml": -400.0,
     "bookmakers_used": 11.0,
@@ -293,7 +293,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_IND_PIT",
@@ -330,7 +330,7 @@
     "ats_signal": "QUALIFIED",
     "ats_action": "BET HOME SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_LV_NE",
@@ -367,7 +367,7 @@
     "ats_signal": "STRONG",
     "ats_action": "BET HOME SPREAD",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_MIN_NO",
@@ -378,8 +378,8 @@
     "away_team": "MIN",
     "spread_home": 2.25,
     "spread_price_home": -110.5,
-    "home_ml": 110.5,
-    "away_ml": -135.0,
+    "home_ml": 110.0,
+    "away_ml": -134.0,
     "bookmakers_used": 11.0,
     "temp_f": 65.0,
     "wind_mph": 0.0,
@@ -394,9 +394,9 @@
     "projected_margin": -3.250621208396412,
     "pickem_signal": "QUALIFIED",
     "pickem_action": "TAKE PICK",
-    "market_home_prob": 0.4526412096114026,
-    "market_away_prob": 0.5473587903885972,
-    "ml_edge": 0.110634475070634,
+    "market_home_prob": 0.4540162980209546,
+    "market_away_prob": 0.5459837019790454,
+    "ml_edge": 0.1120095634801858,
     "ml_action": "BET ML",
     "ats_edge_points_home": -1.000621208396412,
     "ats_pick_home": 0.0,
@@ -404,7 +404,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_NYG_WAS",
@@ -413,10 +413,10 @@
     "gameday": "2026-10-11",
     "home_team": "WAS",
     "away_team": "NYG",
-    "spread_home": -3.5,
-    "spread_price_home": -111.5,
-    "home_ml": -200.0,
-    "away_ml": 160.0,
+    "spread_home": -4.0,
+    "spread_price_home": -108.5,
+    "home_ml": -190.5,
+    "away_ml": 157.5,
     "bookmakers_used": 11.0,
     "temp_f": 62.5,
     "wind_mph": 15.0,
@@ -431,17 +431,17 @@
     "projected_margin": 1.9946727757542595,
     "pickem_signal": "PASS",
     "pickem_action": "LOW CONFIDENCE",
-    "market_home_prob": 0.6341463414634145,
-    "market_away_prob": 0.3658536585365853,
-    "ml_edge": -0.0850668607039907,
+    "market_home_prob": 0.6280588320023047,
+    "market_away_prob": 0.3719411679976954,
+    "ml_edge": -0.0789793512428809,
     "ml_action": "PASS ML",
-    "ats_edge_points_home": -1.5053272242457407,
+    "ats_edge_points_home": -2.0053272242457405,
     "ats_pick_home": 0.0,
     "ats_pick": "NYG",
     "ats_signal": "QUALIFIED",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_PHI_JAX",
@@ -451,9 +451,9 @@
     "home_team": "JAX",
     "away_team": "PHI",
     "spread_home": -7.5,
-    "spread_price_home": -111.0,
-    "home_ml": -377.5,
-    "away_ml": 290.0,
+    "spread_price_home": -110.5,
+    "home_ml": -370.0,
+    "away_ml": 285.0,
     "bookmakers_used": 11.0,
     "temp_f": 79.0,
     "wind_mph": 8.0,
@@ -468,9 +468,9 @@
     "projected_margin": 4.879363418755001,
     "pickem_signal": "PASS",
     "pickem_action": "LOW CONFIDENCE",
-    "market_home_prob": 0.755096807282985,
-    "market_away_prob": 0.244903192717015,
-    "ml_edge": -0.161523382897523,
+    "market_home_prob": 0.7519134336236474,
+    "market_away_prob": 0.2480865663763525,
+    "ml_edge": -0.1583400092381853,
     "ml_action": "PASS ML",
     "ats_edge_points_home": -2.620636581244999,
     "ats_pick_home": 0.0,
@@ -478,7 +478,7 @@
     "ats_signal": "STRONG",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_SF_SEA",
@@ -489,7 +489,7 @@
     "away_team": "SF",
     "spread_home": -3.0,
     "spread_price_home": -109.5,
-    "home_ml": -167.0,
+    "home_ml": -164.0,
     "away_ml": 135.0,
     "bookmakers_used": 11.0,
     "temp_f": 58.0,
@@ -505,9 +505,9 @@
     "projected_margin": 3.464628264687238,
     "pickem_signal": "PASS",
     "pickem_action": "LOW CONFIDENCE",
-    "market_home_prob": 0.5951171430737736,
-    "market_away_prob": 0.4048828569262264,
-    "ml_edge": 0.0001375988110446,
+    "market_home_prob": 0.5934708962118879,
+    "market_away_prob": 0.4065291037881121,
+    "ml_edge": 0.0017838456729304,
     "ml_action": "PASS ML",
     "ats_edge_points_home": 0.4646282646872381,
     "ats_pick_home": 1.0,
@@ -515,7 +515,7 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   },
   {
     "game_id": "2026_05_BUF_LA",
@@ -552,6 +552,6 @@
     "ats_signal": "PASS",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T12:18:46.436242+00:00"
+    "snapshot_utc": "2026-10-08T15:15:28.545613+00:00"
   }
 ]
