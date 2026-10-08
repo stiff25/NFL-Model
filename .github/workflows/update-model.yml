@@ -1,1 +1,173 @@
+name: Update NFL Model
 
+on:
+  workflow_dispatch:
+    inputs:
+      run_backtest:
+        description: "Run the strict 2021-2025 walk-forward backtest (takes longer)"
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    - cron: "0 */3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install numpy pandas scikit-learn pyarrow requests
+
+      - name: Run live V3 model
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: au
+          ODDS_MARKETS: h2h,spreads,totals
+        run: python nfl_model_v3.py
+
+      - name: Convert picks to valid JSON and update history/records
+        env:
+          TZ: Australia/Melbourne
+        run: |
+          python - <<'PY'
+          import json, math, re
+          from pathlib import Path
+          from datetime import datetime, timezone
+          import pandas as pd
+          import urllib.request
+
+          src=Path("nfl_model_v3_current_picks.csv")
+          feed=Path("data/current_picks.json")
+          history_path=Path("data/pick_history.json")
+          record_path=Path("data/record.json")
+          feed.parent.mkdir(parents=True,exist_ok=True)
+          df=pd.read_csv(src)
+
+          def clean(v):
+              if isinstance(v,dict): return {k:clean(x) for k,x in v.items()}
+              if isinstance(v,list): return [clean(x) for x in v]
+              if isinstance(v,float) and not math.isfinite(v): return None
+              return v
+
+          payload=clean(df.to_dict(orient="records"))
+          with feed.open("w",encoding="utf-8") as f: json.dump(payload,f,indent=2,allow_nan=False)
+          print(f"Wrote valid JSON: {feed} ({len(payload)} games)")
+
+          # Lock the latest pregame prediction for each game, then resolve it after the game finishes.
+          old=[]
+          if history_path.exists():
+              try: old=json.loads(history_path.read_text(encoding="utf-8"))
+              except Exception: old=[]
+          byid={str(x.get("game_id")):x for x in old if x.get("game_id")}
+          now=datetime.now(timezone.utc)
+          for r in payload:
+              gid=str(r.get("game_id"))
+              if not gid: continue
+              gday=str(r.get("gameday"))
+              # Use schedule day as a conservative lock. Before the day starts, refresh the prediction;
+              # once the date is reached, preserve the last stored pregame version.
+              try:
+                  game_day=pd.to_datetime(gday).date()
+                  today=pd.Timestamp.now(tz="Australia/Melbourne").date()
+              except Exception:
+                  game_day=today
+              if gid not in byid or game_day>today:
+                  rr=dict(r); rr["snapshot_utc"]=now.isoformat(); byid[gid]=rr
+
+          # Pull nflverse schedule to resolve completed games.
+          try:
+              sched=pd.read_csv("https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv")
+              sched=sched[sched.game_type.eq("REG")].copy()
+              for c in ["home_score","away_score","spread_line"]:
+                  sched[c]=pd.to_numeric(sched[c],errors="coerce")
+              sm={str(x.game_id):x for _,x in sched.iterrows()}
+          except Exception as e:
+              print("Schedule resolution warning:",e); sm={}
+
+          for gid,r in byid.items():
+              g=sm.get(gid)
+              if g is None or not pd.notna(g.get("home_score")) or not pd.notna(g.get("away_score")): continue
+              margin=float(g.home_score-g.away_score)
+              r["actual_home_score"]=float(g.home_score); r["actual_away_score"]=float(g.away_score)
+              r["pickem_result"]="WIN" if ((int(r.get("pick_home",0))==1 and margin>0) or (int(r.get("pick_home",0))==0 and margin<0)) else ("PUSH" if margin==0 else "LOSS")
+              line=r.get("spread_home")
+              try: line=float(line)
+              except Exception: line=None
+              action=str(r.get("ats_action", "PASS ATS"))
+              if line is not None and action!="PASS ATS":
+                  cover=margin+line
+                  r["ats_result"]="WIN" if ((action=="BET HOME SPREAD" and cover>0) or (action=="BET AWAY SPREAD" and cover<0)) else ("PUSH" if cover==0 else "LOSS")
+
+          hist=sorted(byid.values(),key=lambda x:(str(x.get("gameday")),str(x.get("game_id"))))
+          history_path.write_text(json.dumps(clean(hist),indent=2,allow_nan=False),encoding="utf-8")
+
+          def rate(items,key):
+              vals=[x.get(key) for x in items if x.get(key) in ("WIN","LOSS","PUSH")]
+              w=sum(v=="WIN" for v in vals); l=sum(v=="LOSS" for v in vals); p=sum(v=="PUSH" for v in vals)
+              return {"wins":w,"losses":l,"pushes":p,"bets":w+l,"pct":(w/(w+l) if w+l else None)}
+
+          pick_all=rate(hist,"pickem_result")
+          ats_bets=[x for x in hist if x.get("ats_result") in ("WIN","LOSS","PUSH")]
+          ats_all=rate(ats_bets,"ats_result")
+          qual=[x for x in hist if x.get("pickem_signal") in ("QUALIFIED","STRONG") and x.get("pickem_result") in ("WIN","LOSS","PUSH")]
+          strong=[x for x in hist if x.get("pickem_signal")=="STRONG" and x.get("pickem_result") in ("WIN","LOSS","PUSH")]
+          aq=[x for x in hist if x.get("ats_signal") in ("QUALIFIED","STRONG") and x.get("ats_result") in ("WIN","LOSS","PUSH")]
+          astrong=[x for x in hist if x.get("ats_signal")=="STRONG" and x.get("ats_result") in ("WIN","LOSS","PUSH")]
+
+          record={
+            "targets":{"pickem":0.68,"ats":0.60},
+            "2026_live":{
+              "pickem_all":pick_all,"pickem_qualified":rate(qual,"pickem_result"),"pickem_strong":rate(strong,"pickem_result"),
+              "ats_qualified":rate(aq,"ats_result"),"ats_strong":rate(astrong,"ats_result")
+            },
+            "updated_utc":now.isoformat()
+          }
+          record_path.write_text(json.dumps(clean(record),indent=2,allow_nan=False),encoding="utf-8")
+          print("Updated pick history and record summary")
+          PY
+
+      - name: Run optional strict 2021-2025 backtest
+        if: ${{ inputs.run_backtest == true }}
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: au
+          ODDS_MARKETS: h2h,spreads,totals
+          NFL_MODEL_MODE: backtest
+        run: python nfl_model_v3.py
+
+      - name: Publish backtest summary when requested
+        if: ${{ inputs.run_backtest == true }}
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          p=Path("nfl_model_v3_backtest.json")
+          if p.exists():
+              d=json.loads(p.read_text())
+              d["target_pickem"]=0.68
+              d["target_ats"]=0.60
+              d["pickem_target_hit"]=bool((d.get("straight_up_accuracy") or 0)>=0.68)
+              d["ats_target_hit"]=bool((d.get("ats_rate") or 0)>=0.60)
+              Path("data/backtest_record.json").write_text(json.dumps(d,indent=2),encoding="utf-8")
+              print(json.dumps(d,indent=2))
+          PY
+
+      - name: Commit updated feed, history and records
+        run: |
+          git config user.name "NFL Model Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/current_picks.json data/pick_history.json data/record.json
+          [ ! -f data/backtest_record.json ] || git add data/backtest_record.json
+          [ ! -f nfl_model_v3_backtest.json ] || git add nfl_model_v3_backtest.json
+          [ ! -f nfl_model_v3_backtest_predictions.csv ] || git add nfl_model_v3_backtest_predictions.csv
+          git diff --cached --quiet || git commit -m "Update NFL model feed and records"
+          git push
