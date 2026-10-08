@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#15191D">
+<title>NFL Model V3</title>
+<style>
+:root{--bg:#15191d;--card:#ffffff;--aqua:#00a7b5;--aqua2:#25c2cd;--orange:#f5662b;--ink:#182126;--muted:#68757d;--soft:#eef3f4;--line:#d8e1e3;--shadow:0 8px 24px rgba(0,0,0,.08);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button{font:inherit}.wrap{max-width:760px;margin:auto;padding:12px 12px 28px}
+header{background:linear-gradient(145deg,#11161a,#222b30);color:#fff;border-radius:20px;padding:18px;margin-bottom:12px;box-shadow:var(--shadow)}h1{margin:0 0 4px;font-size:26px}.sub{opacity:.84;font-size:13px}.status{margin-top:11px;background:#202a2f;border:1px solid #35434a;border-radius:11px;padding:9px 10px;font-size:12px}.status.ok{border-color:var(--aqua);color:#d9ffff}.status.err{border-color:var(--orange);color:#ffd8ca}
+.refresh{width:100%;border:0;border-radius:13px;padding:12px;background:var(--aqua);color:#061416;font-weight:900;margin:0 0 10px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}.tab{border:0;border-radius:11px;padding:10px 6px;background:#e6ecee;color:#172126;font-weight:800}.tab.active{background:var(--aqua);color:#061416}.section-title{font-size:14px;font-weight:900;color:#d9ffff;margin:14px 0 6px}
+.card{background:var(--card);border-radius:17px;padding:14px;margin:10px 0;box-shadow:var(--shadow)}.game{display:flex;justify-content:space-between;gap:10px;align-items:center}.teams{font-size:17px;font-weight:900}.muted{color:var(--muted);font-size:12px}.signal{font-weight:900;font-size:12px;padding:7px 9px;border-radius:10px;white-space:nowrap}.strong{background:#ffd9cb;color:#8e2f12}.qualified{background:#d9f8fa;color:#075963}.pass{background:#edf1f2;color:#617078}.orange{color:#c94e1c}.aqua{color:#078794}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.stat{background:var(--soft);border-radius:11px;padding:9px}.label{font-size:10px;color:var(--muted);font-weight:700}.value{font-weight:900;margin-top:3px}.hero{border:2px solid var(--aqua)}.atshero{border:2px solid var(--orange)}.pickline{display:flex;justify-content:space-between;align-items:center;margin:8px 0 0;padding:10px 12px;border-radius:12px;background:#eaf9fa}.pickline.ats{background:#fff0eb}.bigpick{font-size:23px;font-weight:950}.small{font-size:12px;line-height:1.5;color:var(--muted)}.record-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.record-box{background:#f7f9f9;border:1px solid var(--line);border-radius:12px;padding:11px}.record-box b{font-size:18px}.hidden{display:none}.errbox{background:#fff0eb;color:#8e2f12;border:1px solid #ffc5b2;border-radius:13px;padding:12px}.foot{color:#9fb0b6;text-align:center;font-size:11px;margin-top:18px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}.record-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>NFL Model V3</h1>
+<div class="sub">Pick'em + ATS • Australian-region odds • Dolphins theme</div>
+<div id="status" class="status">Loading live feed…</div>
+</header>
+<button class="refresh" onclick="loadFeed()">Refresh now</button>
+<div class="tabs">
+<button class="tab active" onclick="showTab('pickem',this)">PICK'EM</button>
+<button class="tab" onclick="showTab('ats',this)">ATS</button>
+<button class="tab" onclick="showTab('games',this)">ALL GAMES</button>
+<button class="tab" onclick="showTab('record',this)">RECORD</button>
+</div>
+<section id="pickem"></section>
+<section id="ats" class="hidden"></section>
+<section id="games" class="hidden"></section>
+<section id="record" class="hidden"></section>
+<section id="model" class="hidden"></section>
+<div class="foot">Targets are measured by backtest; they are not guarantees.</div>
+</div>
+<script>
+let rows=[],record={},backtest={};
+const $=id=>document.getElementById(id);
+function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function fin(x){return x!==null&&x!==undefined&&Number.isFinite(Number(x))}
+function n(x,d=1){return fin(x)?Number(x).toFixed(d):"—"}
+function pct(x){return fin(x)?(Number(x)*100).toFixed(1)+"%":"—"}
+function dateOnly(x){const d=new Date(x);return Number.isNaN(d.getTime())?esc(x):d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}
+function cls(s){s=String(s||'PASS').toUpperCase();return s==='STRONG'?'strong':s==='QUALIFIED'?'qualified':'pass'}
+function spreadText(r){if(!fin(r.spread_home))return 'No AU spread';const x=Number(r.spread_home);return x===0?'PK':`${r.home_team} ${x>0?'+':''}${x.toFixed(1)}`}
+function mlText(r){if(!fin(r.home_ml)||!fin(r.away_ml))return 'No AU ML';const h=Number(r.home_ml),a=Number(r.away_ml);return `${r.home_team} ${h>0?'+':''}${h} / ${r.away_team} ${a>0?'+':''}${a}`}
+function weekLabel(){const w=rows.length?rows[0].week:null;return w?'Week '+w:'Current week'}
+function pickCard(r){
+ const sig=r.pickem_signal||'PASS';
+ return `<div class="card ${sig==='STRONG'?'hero':''}">
+  <div class="game"><div><div class="teams">${esc(r.away_team)} @ ${esc(r.home_team)}</div><div class="muted">${dateOnly(r.gameday)}</div></div><div class="signal ${cls(sig)}">${esc(sig)}</div></div>
+  <div class="pickline"><div><div class="muted">BEST PICK'EM</div><div class="bigpick aqua">${esc(r.pickem_pick||'—')}</div></div><div style="text-align:right"><div class="muted">Confidence</div><div class="bigpick">${pct(r.confidence)}</div></div></div>
+  <div class="grid"><div class="stat"><div class="label">Home win %</div><div class="value">${pct(r.home_win_prob)}</div></div><div class="stat"><div class="label">Projected margin</div><div class="value">${n(r.projected_margin)}</div></div><div class="stat"><div class="label">Pick'em status</div><div class="value">${esc(r.pickem_action||'')}</div></div><div class="stat"><div class="label">Model votes</div><div class="value">${esc(r.model_votes_home??'—')}/3</div></div></div>
+  <div class="small" style="margin-top:10px">ML: ${esc(mlText(r))} · ML edge ${pct(r.ml_edge)}</div>
+ </div>`
+}
+function atsCard(r){
+ const sig=r.ats_signal||'PASS';
+ return `<div class="card ${sig==='STRONG'?'atshero':''}">
+  <div class="game"><div><div class="teams">${esc(r.away_team)} @ ${esc(r.home_team)}</div><div class="muted">${dateOnly(r.gameday)}</div></div><div class="signal ${cls(sig)}">${esc(sig)}</div></div>
+  <div class="pickline ats"><div><div class="muted">ATS PICK</div><div class="bigpick orange">${esc(r.ats_pick||'—')}</div></div><div style="text-align:right"><div class="muted">ATS edge</div><div class="bigpick">${n(r.ats_edge_points_home)} pts</div></div></div>
+  <div class="grid"><div class="stat"><div class="label">Market spread</div><div class="value">${esc(spreadText(r))}</div></div><div class="stat"><div class="label">Projected margin</div><div class="value">${n(r.projected_margin)}</div></div><div class="stat"><div class="label">ATS action</div><div class="value">${esc(r.ats_action||'PASS ATS')}</div></div><div class="stat"><div class="label">AU books</div><div class="value">${esc(r.bookmakers_used??'—')}</div></div></div>
+  <div class="small" style="margin-top:10px">Australian-region odds are aggregated across available bookmakers. Missing markets are shown as unavailable.</div>
+ </div>`
+}
+function render(){
+ const sorted=[...rows].sort((a,b)=>new Date(a.gameday)-new Date(b.gameday));
+ const pickSorted=[...sorted].sort((a,b)=>Number(b.confidence)-Number(a.confidence));
+ const ats=sorted.filter(r=>String(r.ats_signal)!=='PASS').sort((a,b)=>Math.abs(Number(b.ats_edge_points_home||0))-Math.abs(Number(a.ats_edge_points_home||0)));
+ $('pickem').innerHTML=`<div class="section-title">${weekLabel()} • Pick'em</div>`+(pickSorted.length?pickSorted.map(pickCard).join(''):`<div class="card">No games in feed.</div>`);
+ $('ats').innerHTML=`<div class="section-title">${weekLabel()} • ATS</div>`+(ats.length?ats.map(atsCard).join(''):`<div class="card"><b>No qualifying ATS bets.</b><div class="small">That can be correct. The model is designed to pass when the edge is too small or the market is missing.</div></div>`);
+ $('games').innerHTML=`<div class="section-title">${weekLabel()} • ${sorted.length} games</div>`+sorted.map(r=>`<div class="card"><div class="game"><div><div class="teams">${esc(r.away_team)} @ ${esc(r.home_team)}</div><div class="muted">${dateOnly(r.gameday)}</div></div><div class="signal ${cls(r.pickem_signal)}">${esc(r.pickem_signal||'PASS')}</div></div><div class="small" style="margin-top:8px">Pick'em: <b>${esc(r.pickem_pick||'—')}</b> · ${pct(r.confidence)} · ATS: <b>${esc(r.ats_pick||'—')}</b> · ${esc(spreadText(r))}</div></div>`).join('');
+ $('record').innerHTML=recordHtml();
+}
+function rr(x){return x&&x.bets?`${x.wins}-${x.losses}${x.pushes?'-'+x.pushes:''} (${(x.pct*100).toFixed(1)}%)`:'—'}
+function recordHtml(){
+ const l=record['2026_live']||{}; const b=backtest||{};
+ return `<div class="section-title">Live 2026 tracking</div><div class="record-grid">
+ <div class="record-box"><div class="muted">Pick'em all</div><b>${rr(l.pickem_all)}</b></div>
+ <div class="record-box"><div class="muted">Pick'em qualified</div><b>${rr(l.pickem_qualified)}</b></div>
+ <div class="record-box"><div class="muted">ATS qualified</div><b>${rr(l.ats_qualified)}</b></div>
+ <div class="record-box"><div class="muted">ATS strong</div><b>${rr(l.ats_strong)}</b></div></div>
+ <div class="section-title">2021–2025 walk-forward backtest</div><div class="card"><div class="grid">
+ <div class="stat"><div class="label">Pick'em accuracy</div><div class="value">${pct(b.straight_up_accuracy)}</div></div>
+ <div class="stat"><div class="label">ATS accuracy</div><div class="value">${pct(b.ats_rate)}</div></div>
+ <div class="stat"><div class="label">Pick'em target</div><div class="value">68%</div></div>
+ <div class="stat"><div class="label">ATS target</div><div class="value">60%</div></div></div>
+ <div class="small" style="margin-top:10px">The backtest only counts as evidence after the strict walk-forward run completes. Targets are not guaranteed.</div></div>`
+}
+function showTab(name,btn){document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));$(name).classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+async function loadJson(path){try{const r=await fetch(path+'?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(path+' HTTP '+r.status);return await r.json()}catch(e){return null}}
+async function loadFeed(){
+ const st=$('status');st.className='status';st.textContent='Loading live feed…';
+ try{const data=await loadJson('./data/current_picks.json');if(!Array.isArray(data))throw new Error('current_picks.json is not a valid array');rows=data;
+  record=await loadJson('./data/record.json')||{};backtest=await loadJson('./data/backtest_record.json')||{};render();st.className='status ok';st.textContent=`V3 live feed • ${rows.length} games • ${weekLabel()} • updated ${new Date().toLocaleString()}`
+ }catch(e){st.className='status err';st.textContent='Feed error: '+e.message;$('pickem').innerHTML=`<div class="errbox"><b>Live feed error</b><div class="small" style="margin-top:5px">${esc(e.message)}</div></div>`}
+}
+loadFeed();setInterval(loadFeed,600000);
+</script>
+</body></html>
