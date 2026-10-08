@@ -1,0 +1,44 @@
+{
+  "targets": {
+    "pickem": 0.68,
+    "ats": 0.6
+  },
+  "2026_live": {
+    "pickem_all": {
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "bets": 0,
+      "pct": null
+    },
+    "pickem_qualified": {
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "bets": 0,
+      "pct": null
+    },
+    "pickem_strong": {
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "bets": 0,
+      "pct": null
+    },
+    "ats_qualified": {
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "bets": 0,
+      "pct": null
+    },
+    "ats_strong": {
+      "wins": 0,
+      "losses": 0,
+      "pushes": 0,
+      "bets": 0,
+      "pct": null
+    }
+  },
+  "updated_utc": "2026-10-08T04:45:21.126647+00:00"
+}
