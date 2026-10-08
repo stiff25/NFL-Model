@@ -711,6 +711,7 @@ def live_training_weights(train, asof_season=2026, asof_week=None):
         progress=float(np.clip((float(asof_week)-1.0)/max(LIVE_CURRENT_SEASON_RAMP_WEEKS-1,1),0.0,1.0))
     current_weight=LIVE_CURRENT_SEASON_MIN_WEIGHT + (LIVE_CURRENT_SEASON_MAX_WEIGHT-LIVE_CURRENT_SEASON_MIN_WEIGHT)*progress
     weights=np.asarray(base,dtype=float)
+    weights = np.array(weights, dtype=float, copy=True)
     weights[season_num.to_numpy()==asof_season]=current_weight
     return np.maximum(weights,0.05)
 
