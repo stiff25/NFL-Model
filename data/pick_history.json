@@ -62,16 +62,16 @@
     "ml_action": "PASS ML",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_CHI_GB",
     "gameday": "2026-10-11",
     "home_team": "GB",
     "away_team": "CHI",
-    "spread_home": 2.0,
-    "home_ml": 110.0,
-    "away_ml": -130.0,
+    "spread_home": 1.75,
+    "home_ml": 105.0,
+    "away_ml": -128.5,
     "temp_f": 76.5,
     "wind_mph": 13.6,
     "precip_in": 0.0,
@@ -82,15 +82,15 @@
     "model_votes_home": 0,
     "confidence": 0.5530419712031671,
     "projected_margin": -2.3706060318101674,
-    "market_home_prob": 0.4572564612326044,
-    "market_away_prob": 0.5427435387673957,
-    "ml_edge": 0.0102984324357714,
-    "ats_edge_points_home": -0.3706060318101674,
+    "market_home_prob": 0.4645017024952991,
+    "market_away_prob": 0.5354982975047009,
+    "ml_edge": 0.0175436736984662,
+    "ats_edge_points_home": -0.6206060318101674,
     "ats_pick_home": 0,
     "ml_action": "PASS ML",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_CIN_MIA",
@@ -118,14 +118,14 @@
     "ml_action": "PASS ML",
     "ats_action": "BET HOME SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_CLE_NYJ",
     "gameday": "2026-10-11",
     "home_team": "NYJ",
     "away_team": "CLE",
-    "spread_home": -2.25,
+    "spread_home": -2.0,
     "home_ml": -137.0,
     "away_ml": 115.0,
     "temp_f": 63.3,
@@ -141,12 +141,12 @@
     "market_home_prob": 0.5541341360173079,
     "market_away_prob": 0.4458658639826921,
     "ml_edge": 0.1123962028373609,
-    "ats_edge_points_home": -2.738738069666389,
+    "ats_edge_points_home": -2.488738069666389,
     "ats_pick_home": 0,
     "ml_action": "PASS ML",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_DEN_LAC",
@@ -174,7 +174,7 @@
     "ml_action": "BET ML",
     "ats_action": "PASS ATS",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_DET_ARI",
@@ -202,7 +202,7 @@
     "ml_action": "PASS ML",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_HOU_TEN",
@@ -212,10 +212,10 @@
     "spread_home": 7.5,
     "home_ml": 300.0,
     "away_ml": -400.0,
-    "temp_f": 65.0,
-    "wind_mph": 0.0,
-    "precip_in": 0.0,
-    "weather_severity": 0.0,
+    "temp_f": 64.1,
+    "wind_mph": 6.7,
+    "precip_in": 0.012,
+    "weather_severity": 0.395,
     "home_win_prob": 0.2823469798849269,
     "away_win_prob": 0.717653020115073,
     "pick_home": 0,
@@ -230,7 +230,7 @@
     "ml_action": "PASS ML",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_IND_PIT",
@@ -238,27 +238,27 @@
     "home_team": "PIT",
     "away_team": "IND",
     "spread_home": -2.5,
-    "home_ml": -143.0,
+    "home_ml": -147.0,
     "away_ml": 120.0,
-    "temp_f": 65.0,
-    "wind_mph": 0.0,
-    "precip_in": 0.0,
-    "weather_severity": 0.0,
+    "temp_f": 58.1,
+    "wind_mph": 8.6,
+    "precip_in": 0.016,
+    "weather_severity": 0.51,
     "home_win_prob": 0.6469467119937845,
     "away_win_prob": 0.3530532880062155,
     "pick_home": 1,
     "model_votes_home": 3,
     "confidence": 0.6469467119937845,
     "projected_margin": 4.5230184615347175,
-    "market_home_prob": 0.5642037302725968,
-    "market_away_prob": 0.4357962697274031,
-    "ml_edge": 0.0827429817211876,
+    "market_home_prob": 0.5669705469845722,
+    "market_away_prob": 0.4330294530154278,
+    "ml_edge": 0.0799761650092123,
     "ats_edge_points_home": 2.023018461534717,
     "ats_pick_home": 1,
     "ml_action": "BET ML",
     "ats_action": "BET HOME SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_LV_NE",
@@ -268,10 +268,10 @@
     "spread_home": -3.5,
     "home_ml": -192.0,
     "away_ml": 160.0,
-    "temp_f": 65.0,
-    "wind_mph": 0.0,
+    "temp_f": 62.3,
+    "wind_mph": 7.7,
     "precip_in": 0.0,
-    "weather_severity": 0.0,
+    "weather_severity": 0.385,
     "home_win_prob": 0.7334588425302595,
     "away_win_prob": 0.2665411574697405,
     "pick_home": 1,
@@ -286,7 +286,7 @@
     "ml_action": "BET ML",
     "ats_action": "BET HOME SPREAD",
     "signal_strength": "STRONG",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_MIN_NO",
@@ -295,7 +295,7 @@
     "away_team": "MIN",
     "spread_home": 2.25,
     "home_ml": 115.0,
-    "away_ml": -141.0,
+    "away_ml": -139.0,
     "temp_f": 65.0,
     "wind_mph": 0.0,
     "precip_in": 0.0,
@@ -306,15 +306,15 @@
     "model_votes_home": 0,
     "confidence": 0.6332507428373355,
     "projected_margin": -3.084440910159084,
-    "market_home_prob": 0.4428925847652301,
-    "market_away_prob": 0.5571074152347698,
-    "ml_edge": 0.0761433276025657,
+    "market_home_prob": 0.4443618109138236,
+    "market_away_prob": 0.5556381890861765,
+    "ml_edge": 0.077612553751159,
     "ats_edge_points_home": -0.834440910159084,
     "ats_pick_home": 0,
     "ml_action": "BET ML",
     "ats_action": "PASS ATS",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_NYG_WAS",
@@ -323,26 +323,26 @@
     "away_team": "NYG",
     "spread_home": -4.0,
     "home_ml": -200.0,
-    "away_ml": 160.0,
-    "temp_f": 65.0,
-    "wind_mph": 0.0,
-    "precip_in": 0.0,
-    "weather_severity": 0.0,
+    "away_ml": 161.5,
+    "temp_f": 62.3,
+    "wind_mph": 17.1,
+    "precip_in": 0.24,
+    "weather_severity": 2.055,
     "home_win_prob": 0.5559265536241808,
     "away_win_prob": 0.4440734463758192,
     "pick_home": 1,
     "model_votes_home": 3,
     "confidence": 0.5559265536241808,
     "projected_margin": 2.023591446767071,
-    "market_home_prob": 0.6341463414634145,
-    "market_away_prob": 0.3658536585365853,
-    "ml_edge": -0.0782197878392337,
+    "market_home_prob": 0.6354799513973268,
+    "market_away_prob": 0.3645200486026731,
+    "ml_edge": -0.079553397773146,
     "ats_edge_points_home": -1.976408553232929,
     "ats_pick_home": 0,
     "ml_action": "PASS ML",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_PHI_JAX",
@@ -352,10 +352,10 @@
     "spread_home": -7.25,
     "home_ml": -370.0,
     "away_ml": 290.0,
-    "temp_f": 65.0,
-    "wind_mph": 0.0,
+    "temp_f": 78.1,
+    "wind_mph": 7.1,
     "precip_in": 0.0,
-    "weather_severity": 0.0,
+    "weather_severity": 0.355,
     "home_win_prob": 0.6012702288791048,
     "away_win_prob": 0.3987297711208952,
     "pick_home": 1,
@@ -370,7 +370,7 @@
     "ml_action": "PASS ML",
     "ats_action": "BET AWAY SPREAD",
     "signal_strength": "QUALIFIED",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_SF_SEA",
@@ -398,7 +398,7 @@
     "ml_action": "PASS ML",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   },
   {
     "game_id": "2026_05_BUF_LA",
@@ -426,6 +426,6 @@
     "ml_action": "PASS ML",
     "ats_action": "PASS ATS",
     "signal_strength": "PASS",
-    "snapshot_utc": "2026-10-08T20:01:58.550261+00:00"
+    "snapshot_utc": "2026-10-08T21:15:06.626430+00:00"
   }
 ]
