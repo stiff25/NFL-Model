@@ -5,5 +5,85 @@
   "ats_rate": 0.7829286239882266,
   "ats_games": 1359,
   "ats_target_hit": true,
-  "target_hit": false
+  "target_hit": false,
+  "pickem_signals": {
+    "STRONG": {
+      "games": 497,
+      "accuracy": 0.7766599597585513
+    },
+    "QUALIFIED": {
+      "games": 447,
+      "accuracy": 0.6375838926174496
+    },
+    "PASS": {
+      "games": 415,
+      "accuracy": 0.5662650602409639
+    }
+  },
+  "ats_signals": {
+    "STRONG": {
+      "games": 1272,
+      "accuracy": 0.8011006289308176
+    },
+    "QUALIFIED": {
+      "games": 55,
+      "accuracy": 0.4727272727272727
+    },
+    "PASS": {
+      "games": 32,
+      "accuracy": 0.59375
+    }
+  },
+  "seasons": [
+    {
+      "season": 2021,
+      "games": 272,
+      "pickem_accuracy": 0.6323529411764706,
+      "unanimous_accuracy": 0.6363636363636364,
+      "ats_accuracy": 0.7352941176470589,
+      "ats_games": 272,
+      "pickem_target_68": false,
+      "ats_target_60": true
+    },
+    {
+      "season": 2022,
+      "games": 271,
+      "pickem_accuracy": 0.6715867158671587,
+      "unanimous_accuracy": 0.6705426356589147,
+      "ats_accuracy": 0.7638376383763837,
+      "ats_games": 271,
+      "pickem_target_68": false,
+      "ats_target_60": true
+    },
+    {
+      "season": 2023,
+      "games": 272,
+      "pickem_accuracy": 0.6764705882352942,
+      "unanimous_accuracy": 0.6856060606060606,
+      "ats_accuracy": 0.8088235294117647,
+      "ats_games": 272,
+      "pickem_target_68": false,
+      "ats_target_60": true
+    },
+    {
+      "season": 2024,
+      "games": 272,
+      "pickem_accuracy": 0.7058823529411765,
+      "unanimous_accuracy": 0.7089552238805971,
+      "ats_accuracy": 0.8088235294117647,
+      "ats_games": 272,
+      "pickem_target_68": true,
+      "ats_target_60": true
+    },
+    {
+      "season": 2025,
+      "games": 272,
+      "pickem_accuracy": 0.6470588235294118,
+      "unanimous_accuracy": 0.6553030303030303,
+      "ats_accuracy": 0.7977941176470589,
+      "ats_games": 272,
+      "pickem_target_68": false,
+      "ats_target_60": true
+    }
+  ]
 }
