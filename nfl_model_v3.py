@@ -676,21 +676,18 @@ def walk_forward(games, start=BACKTEST_START, end=BACKTEST_END):
 
 
 def evaluate(pred):
-    if pred.empty: return {}
+    if pred.empty:
+        return {}
 
-    # Straight-up result
+    # ---------------- Overall results ----------------
     su_acc = float((pred.pick_home == pred.home_win).mean())
 
-    # Unanimous ensemble result
     unanimous_mask = (pred.model_votes_home==0) | (pred.model_votes_home==3)
     unanimous_acc = (
         float((pred.loc[unanimous_mask,"pick_home"] == pred.loc[unanimous_mask,"home_win"]).mean())
         if unanimous_mask.any() else np.nan
     )
 
-    # Proper ATS result:
-    # - use the model's ATS pick, not the straight-up pick
-    # - exclude missing spreads and pushes
     ats_mask = (
         pred.home_cover.notna()
         & pred.ats_pick_home.notna()
@@ -701,14 +698,82 @@ def evaluate(pred):
         if ats_mask.any() else np.nan
     )
 
+    # ---------------- Signal buckets ----------------
+    pred = pred.copy()
+    pred["pickem_confidence"] = np.where(
+        pred.pick_home.eq(1), pred.home_win_prob, 1-pred.home_win_prob
+    )
+    pred["pickem_signal"] = np.select(
+        [
+            pred.pickem_confidence >= PICKEM_STRONG_CONFIDENCE,
+            pred.pickem_confidence >= PICKEM_QUALIFIED_CONFIDENCE,
+        ],
+        ["STRONG","QUALIFIED"],
+        default="PASS"
+    )
+
+    pred["ats_edge_points"] = pred.projected_margin + pred.spread_line
+    pred["ats_signal"] = np.select(
+        [
+            pred.spread_line.notna() & (pred.ats_edge_points.abs() >= STRONG_ATS_EDGE_POINTS),
+            pred.spread_line.notna() & (pred.ats_edge_points.abs() >= MIN_ATS_EDGE_POINTS),
+        ],
+        ["STRONG","QUALIFIED"],
+        default="PASS"
+    )
+
+    def signal_accuracy(frame, signal_col, signal):
+        d=frame[(frame[signal_col]==signal)].copy()
+        if signal_col=="pickem_signal":
+            return {
+                "games": int(len(d)),
+                "accuracy": float((d.pick_home==d.home_win).mean()) if len(d) else None
+            }
+        d=d[d.home_cover.notna() & d.ats_pick_home.notna()]
+        return {
+            "games": int(len(d)),
+            "accuracy": float((d.ats_pick_home.astype(int)==d.home_cover.astype(int)).mean()) if len(d) else None
+        }
+
+    # ---------------- Season-by-season results ----------------
+    seasons=[]
+    for season, d in pred.groupby("season", sort=True):
+        su=float((d.pick_home==d.home_win).mean()) if len(d) else np.nan
+        umask=(d.model_votes_home==0)|(d.model_votes_home==3)
+        ua=float((d.loc[umask,"pick_home"]==d.loc[umask,"home_win"]).mean()) if umask.any() else np.nan
+        amask=d.home_cover.notna() & d.ats_pick_home.notna() & d.spread_line.notna()
+        aa=float((d.loc[amask,"ats_pick_home"].astype(int)==d.loc[amask,"home_cover"].astype(int)).mean()) if amask.any() else np.nan
+
+        seasons.append({
+            "season": int(season),
+            "games": int(len(d)),
+            "pickem_accuracy": su,
+            "unanimous_accuracy": ua,
+            "ats_accuracy": aa,
+            "ats_games": int(amask.sum()),
+            "pickem_target_68": bool(su >= TARGET_ACCURACY),
+            "ats_target_60": bool(aa >= TARGET_ATS_ACCURACY) if np.isfinite(aa) else False,
+        })
+
     return {
         "games": int(len(pred)),
         "straight_up_accuracy": su_acc,
         "unanimous_accuracy": unanimous_acc,
         "ats_rate": ats_acc,
         "ats_games": int(ats_mask.sum()),
-        "ats_target_hit": bool(ats_acc >= 0.60) if np.isfinite(ats_acc) else False,
+        "ats_target_hit": bool(ats_acc >= TARGET_ATS_ACCURACY) if np.isfinite(ats_acc) else False,
         "target_hit": bool(su_acc >= TARGET_ACCURACY),
+        "pickem_signals": {
+            "STRONG": signal_accuracy(pred,"pickem_signal","STRONG"),
+            "QUALIFIED": signal_accuracy(pred,"pickem_signal","QUALIFIED"),
+            "PASS": signal_accuracy(pred,"pickem_signal","PASS"),
+        },
+        "ats_signals": {
+            "STRONG": signal_accuracy(pred,"ats_signal","STRONG"),
+            "QUALIFIED": signal_accuracy(pred,"ats_signal","QUALIFIED"),
+            "PASS": signal_accuracy(pred,"ats_signal","PASS"),
+        },
+        "seasons": seasons,
     }
 
 
@@ -874,9 +939,33 @@ def run_backtest():
     hist=add_model_diffs(hist)
     pred=walk_forward(hist)
     rep=evaluate(pred)
-    Path("nfl_model_v3_backtest.json").write_text(json.dumps(rep,indent=2))
+
+    # Main summary
+    Path("nfl_model_v3_backtest.json").write_text(
+        json.dumps(rep,indent=2,allow_nan=False)
+    )
+
+    # Season-by-season record for the dashboard
+    pd.DataFrame(rep.get("seasons",[])).to_csv(
+        "nfl_model_v3_season_results.csv",index=False
+    )
+
+    # Signal-strength record
+    signal_rows=[]
+    for model_name, key in [("PICKEM","pickem_signals"),("ATS","ats_signals")]:
+        for signal, vals in rep.get(key,{}).items():
+            signal_rows.append({
+                "model":model_name,
+                "signal":signal,
+                "games":vals.get("games"),
+                "accuracy":vals.get("accuracy")
+            })
+    pd.DataFrame(signal_rows).to_csv(
+        "nfl_model_v3_signal_results.csv",index=False
+    )
+
     pred.to_csv("nfl_model_v3_backtest_predictions.csv",index=False)
-    print(json.dumps(rep,indent=2))
+    print(json.dumps(rep,indent=2,allow_nan=False))
     return rep,pred
 
 
