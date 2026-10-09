@@ -1,19 +1,20 @@
 {
   "games": 1355,
-  "straight_up_accuracy": 0.647970479704797,
-  "unanimous_accuracy": 0.664179104477612,
-  "unanimous_games": 1206,
-  "ats_rate": 0.5143288084464555,
+  "straight_up_accuracy": 0.6516605166051661,
+  "unanimous_accuracy": 0.6708333333333333,
+  "unanimous_games": 1200,
+  "ats_rate": 0.5135746606334841,
   "ats_games": 1326,
   "ats_target_hit": false,
+  "ats_research_target": 0.64,
   "target_hit": false,
   "target_pickem": 0.68,
   "closing_market_favorite_accuracy": 0.666420664206642,
   "closing_market_favorite_games": 1355,
-  "model_accuracy_on_closing_favorite_games": 0.647970479704797,
-  "model_minus_closing_favorite_accuracy": -0.01845018450184499,
-  "brier_score": 0.22422803995821258,
-  "expected_calibration_error": 0.04398784470999405,
+  "model_accuracy_on_closing_favorite_games": 0.6516605166051661,
+  "model_minus_closing_favorite_accuracy": -0.014760147601475926,
+  "brier_score": 0.22464358244083216,
+  "expected_calibration_error": 0.0480643680295999,
   "seasons": [
     {
       "season": 2021,
@@ -25,35 +26,84 @@
     {
       "season": 2022,
       "games": 269,
-      "pickem_accuracy": 0.6505576208178439,
+      "pickem_accuracy": 0.6431226765799256,
       "ats_games": 261,
       "ats_accuracy": 0.49808429118773945
     },
     {
       "season": 2023,
       "games": 272,
-      "pickem_accuracy": 0.625,
+      "pickem_accuracy": 0.6470588235294118,
       "ats_games": 258,
       "ats_accuracy": 0.5
     },
     {
       "season": 2024,
       "games": 272,
-      "pickem_accuracy": 0.6801470588235294,
+      "pickem_accuracy": 0.6875,
       "ats_games": 268,
-      "ats_accuracy": 0.5485074626865671
+      "ats_accuracy": 0.5298507462686567
     },
     {
       "season": 2025,
       "games": 271,
-      "pickem_accuracy": 0.6383763837638377,
+      "pickem_accuracy": 0.6346863468634686,
       "ats_games": 271,
-      "ats_accuracy": 0.46863468634686345
+      "ats_accuracy": 0.4833948339483395
     }
   ],
   "ats_line_timing": "Historical closing lines, NOT archived lines at Pick'em deadline",
   "historical_odds_used_as_predictor": false,
+  "raw_model_accuracy": 0.6442804428044281,
+  "raw_model_brier": 0.2243445483662976,
+  "calibrated_predictions": 375,
+  "calibration_strategy": "Only prior out-of-fold predictions; 70/30 earlier-history gate by Brier",
   "ats_method": "Compare separate projected-margin ATS side with nflverse closing line; omit pushes",
+  "season_weight_tuning": {
+    "selection_years": [
+      2022,
+      2023
+    ],
+    "untouched_holdout_years": [
+      2024,
+      2025
+    ],
+    "metric": "Brier score (primary), accuracy tie-break",
+    "selected_decay": 0.7,
+    "tuning_available": true,
+    "candidate_scores": [
+      {
+        "season_decay": 0.7,
+        "validation_games": 543,
+        "validation_brier": 0.23039292876217568,
+        "validation_accuracy": 0.6464088397790055
+      },
+      {
+        "season_decay": 0.82,
+        "validation_games": 543,
+        "validation_brier": 0.23059078731250557,
+        "validation_accuracy": 0.6408839779005525
+      },
+      {
+        "season_decay": 0.93,
+        "validation_games": 543,
+        "validation_brier": 0.23076131733801428,
+        "validation_accuracy": 0.6335174953959485
+      },
+      {
+        "season_decay": 1.0,
+        "validation_games": 543,
+        "validation_brier": 0.23086336817059225,
+        "validation_accuracy": 0.6353591160220995
+      }
+    ]
+  },
+  "held_out_2024_2025_accuracy": 0.6617647058823529,
+  "held_out_2024_2025_games": 544,
+  "held_out_2024_2025_brier": 0.2177485431088197,
+  "deadline_market_games": 0,
+  "deadline_market_status": "Unavailable: no audited pre-deadline prices; closing lines are excluded",
+  "market_blend_method": "Fixed experimental live weight, no historical claim without deadline-odds archive",
   "target_ats": 0.6,
   "pickem_target_hit": false
 }
