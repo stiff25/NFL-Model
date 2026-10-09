@@ -103,7 +103,23 @@
   "held_out_2024_2025_brier": 0.2177485431088197,
   "deadline_market_games": 0,
   "deadline_market_status": "Unavailable: no audited pre-deadline prices; closing lines are excluded",
-  "market_blend_method": "Fixed experimental live weight, no historical claim without deadline-odds archive",
+  "market_first_override_policy": {
+    "method": "MARKET_FIRST_V33",
+    "validated": false,
+    "policy": null,
+    "reason": "No adequate timestamped historical pre-deadline moneyline quotes",
+    "selection_years": [
+      2021,
+      2022,
+      2023
+    ],
+    "validation_years": [
+      2024,
+      2025
+    ],
+    "note": "Closing lines are never substituted for pre-deadline prices"
+  },
+  "market_blend_method": "Market-first with candidate model overrides; never tested on closing market prices",
   "target_ats": 0.6,
   "pickem_target_hit": false
 }
