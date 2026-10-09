@@ -1,7 +1,57 @@
 {
-  "games": 1359,
-  "straight_up_accuracy": 0.6688741721854304,
-  "unanimous_accuracy": 0.672686230248307,
-  "ats_rate": 0.7821927888153054,
-  "target_hit": true
+  "games": 1355,
+  "straight_up_accuracy": 0.647970479704797,
+  "unanimous_accuracy": 0.664179104477612,
+  "unanimous_games": 1206,
+  "ats_rate": 0.5143288084464555,
+  "ats_games": 1326,
+  "ats_target_hit": false,
+  "target_hit": false,
+  "target_pickem": 0.68,
+  "closing_market_favorite_accuracy": 0.666420664206642,
+  "closing_market_favorite_games": 1355,
+  "model_accuracy_on_closing_favorite_games": 0.647970479704797,
+  "model_minus_closing_favorite_accuracy": -0.01845018450184499,
+  "brier_score": 0.22422803995821258,
+  "expected_calibration_error": 0.04398784470999405,
+  "seasons": [
+    {
+      "season": 2021,
+      "games": 271,
+      "pickem_accuracy": 0.6457564575645757,
+      "ats_games": 268,
+      "ats_accuracy": 0.5559701492537313
+    },
+    {
+      "season": 2022,
+      "games": 269,
+      "pickem_accuracy": 0.6505576208178439,
+      "ats_games": 261,
+      "ats_accuracy": 0.49808429118773945
+    },
+    {
+      "season": 2023,
+      "games": 272,
+      "pickem_accuracy": 0.625,
+      "ats_games": 258,
+      "ats_accuracy": 0.5
+    },
+    {
+      "season": 2024,
+      "games": 272,
+      "pickem_accuracy": 0.6801470588235294,
+      "ats_games": 268,
+      "ats_accuracy": 0.5485074626865671
+    },
+    {
+      "season": 2025,
+      "games": 271,
+      "pickem_accuracy": 0.6383763837638377,
+      "ats_games": 271,
+      "ats_accuracy": 0.46863468634686345
+    }
+  ],
+  "ats_line_timing": "Historical closing lines, NOT archived lines at Pick'em deadline",
+  "historical_odds_used_as_predictor": false,
+  "ats_method": "Compare separate projected-margin ATS side with nflverse closing line; omit pushes"
 }
