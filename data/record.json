@@ -6,10 +6,10 @@
   "2026_live": {
     "pickem_all": {
       "wins": 0,
-      "losses": 0,
+      "losses": 1,
       "pushes": 0,
-      "bets": 0,
-      "pct": null
+      "bets": 1,
+      "pct": 0.0
     },
     "pickem_qualified": {
       "wins": 0,
@@ -26,19 +26,19 @@
       "pct": null
     },
     "ats_qualified": {
-      "wins": 0,
+      "wins": 1,
       "losses": 0,
       "pushes": 0,
-      "bets": 0,
-      "pct": null
+      "bets": 1,
+      "pct": 1.0
     },
     "ats_strong": {
-      "wins": 0,
+      "wins": 1,
       "losses": 0,
       "pushes": 0,
-      "bets": 0,
-      "pct": null
+      "bets": 1,
+      "pct": 1.0
     }
   },
-  "updated_utc": "2026-10-09T03:14:34.174553+00:00"
+  "updated_utc": "2026-10-09T06:20:31.825289+00:00"
 }
