@@ -13,8 +13,8 @@
   "closing_market_favorite_games": 1355,
   "model_accuracy_on_closing_favorite_games": 0.6516605166051661,
   "model_minus_closing_favorite_accuracy": -0.014760147601475926,
-  "brier_score": 0.22464358244083216,
-  "expected_calibration_error": 0.0480643680295999,
+  "brier_score": 0.22464358244083207,
+  "expected_calibration_error": 0.0480643680295996,
   "seasons": [
     {
       "season": 2021,
@@ -55,7 +55,7 @@
   "ats_line_timing": "Historical closing lines, NOT archived lines at Pick'em deadline",
   "historical_odds_used_as_predictor": false,
   "raw_model_accuracy": 0.6442804428044281,
-  "raw_model_brier": 0.2243445483662976,
+  "raw_model_brier": 0.22434454836629752,
   "calibrated_predictions": 375,
   "calibration_strategy": "Only prior out-of-fold predictions; 70/30 earlier-history gate by Brier",
   "ats_method": "Compare separate projected-margin ATS side with nflverse closing line; omit pushes",
@@ -87,20 +87,20 @@
       {
         "season_decay": 0.93,
         "validation_games": 543,
-        "validation_brier": 0.23076131733801428,
+        "validation_brier": 0.23076131733801458,
         "validation_accuracy": 0.6335174953959485
       },
       {
         "season_decay": 1.0,
         "validation_games": 543,
-        "validation_brier": 0.23086336817059225,
+        "validation_brier": 0.23086336817059222,
         "validation_accuracy": 0.6353591160220995
       }
     ]
   },
   "held_out_2024_2025_accuracy": 0.6617647058823529,
   "held_out_2024_2025_games": 544,
-  "held_out_2024_2025_brier": 0.2177485431088197,
+  "held_out_2024_2025_brier": 0.21774854310881928,
   "deadline_market_games": 0,
   "deadline_market_status": "Unavailable: no audited pre-deadline prices; closing lines are excluded",
   "market_first_override_policy": {
