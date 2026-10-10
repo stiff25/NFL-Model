@@ -1,0 +1,121 @@
+name: Update NFL Model
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_backtest:
+        description: "Run historical 2021-2025 backtest (slower)"
+        type: boolean
+        default: false
+        required: true
+  schedule:
+    # Background refresh once daily (UTC). Preflight decides if season is active.
+    - cron: '19 8 * * *'
+    # Extra opportunities before kickoffs. Preflight skips runs far from games.
+    # GitHub scheduling is best-effort and is NOT a guaranteed 15-minute lock.
+    - cron: '7,37 * * * *'
+
+permissions:
+  contents: write
+
+# Don't let two automatic updates race to commit different pick histories.
+concurrency:
+  group: nfl-model-main-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install lightweight preflight dependencies
+        run: pip install pandas
+
+      - name: Decide whether to refresh
+        id: preflight
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE_NAME: ${{ github.event.schedule }}
+          NFL_SEASON: '2026'
+        shell: bash
+        run: |
+          python nfl_tracking_v34.py preflight --event "$EVENT_NAME" --schedule "$SCHEDULE_NAME"
+
+      - name: Install full model dependencies
+        if: steps.preflight.outputs.run_model == 'true'
+        run: pip install numpy scikit-learn pyarrow requests
+
+      - name: Run live V3.4 model
+        if: steps.preflight.outputs.run_model == 'true'
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_REGIONS: au
+          ODDS_MARKETS: h2h,spreads,totals
+          NFL_MODEL_MODE: live
+          NFL_SAVE_SNAPSHOTS: '0'
+          NFL_EXPERIMENTAL_UPSETS: '0'
+        run: python nfl_model_v3.py
+
+      - name: Store timestamped odds, lock picks, and update records
+        if: steps.preflight.outputs.run_model == 'true'
+        run: python nfl_tracking_v34.py update
+
+      - name: Run optional historical backtest
+        if: github.event_name == 'workflow_dispatch' && inputs.run_backtest == true
+        env:
+          NFL_MODEL_MODE: backtest
+          NFL_EXPERIMENTAL_UPSETS: '0'
+        run: python nfl_model_v3.py
+
+      - name: Publish optional historical backtest record
+        if: github.event_name == 'workflow_dispatch' && inputs.run_backtest == true
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src = Path('nfl_model_v3_backtest.json')
+          dest = Path('data/backtest_record.json')
+          if src.exists():
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              dest.write_text(json.dumps(json.loads(src.read_text()), indent=2))
+          PY
+
+      - name: Safely commit live and backtest records
+        if: steps.preflight.outputs.run_model == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "NFL Model Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/current_picks.json data/record.json \
+            data/locked_picks.json data/verified_pick_history.json \
+            data/prediction_snapshots.jsonl data/odds_snapshots.jsonl \
+            data/pregame_deadline_odds_2026.csv
+          if [ -f data/backtest_record.json ]; then git add data/backtest_record.json; fi
+          if [ -f nfl_model_v3_backtest.json ]; then git add nfl_model_v3_backtest.json; fi
+          if [ -f nfl_model_v3_backtest_predictions.csv ]; then git add nfl_model_v3_backtest_predictions.csv; fi
+          if git diff --cached --quiet; then
+            echo "No files to commit"
+            exit 0
+          fi
+          git commit -m "Archive timestamped NFL pregame odds and picks"
+          # A concurrent manual edit may have advanced main. Rebase, never force-push.
+          # If it changed these same files, the job fails safely rather than overwriting it.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort || true; echo "Rebase conflict: review manually"; exit 1; }
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Push raced with another commit; retrying... ($attempt/3)"
+            sleep 4
+          done
+          echo "Could not safely publish archive after three attempts"
+          exit 1
