@@ -119,7 +119,5 @@
     ],
     "note": "Closing lines are never substituted for pre-deadline prices"
   },
-  "market_blend_method": "Market-first with candidate model overrides; never tested on closing market prices",
-  "target_ats": 0.6,
-  "pickem_target_hit": false
+  "market_blend_method": "Market-first with candidate model overrides; never tested on closing market prices"
 }
