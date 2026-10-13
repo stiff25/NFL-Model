@@ -4,14 +4,14 @@
     "ats": 0.64,
     "ats_research": 0.64
   },
-  "updated_utc": "2026-10-12T23:51:33Z",
+  "updated_utc": "2026-10-13T08:39:10Z",
   "2026_live": {
     "pickem_all": {
       "wins": 9,
-      "losses": 3,
+      "losses": 4,
       "pushes": 0,
-      "bets": 12,
-      "pct": 0.75
+      "bets": 13,
+      "pct": 0.6923076923076923
     },
     "pickem_qualified": {
       "wins": 6,
@@ -52,8 +52,8 @@
     }
   },
   "tracking": {
-    "locked_games": 14,
-    "archived_quotes": 13,
+    "locked_games": 28,
+    "archived_quotes": 26,
     "near_kickoff_locks": 14,
     "verified_comparison_games": 12
   }
