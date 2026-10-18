@@ -643,7 +643,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 13.0,
+    "actual_away_score": 10.0,
+    "pickem_result": "LOSS",
+    "market_result": "LOSS",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_CAR_PHI",
@@ -676,7 +682,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": true,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 14.0,
+    "actual_away_score": 25.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_CHI_ATL",
@@ -709,7 +721,11 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 23.0,
+    "actual_away_score": 31.0,
+    "pickem_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_06_NO_NYG",
@@ -742,7 +758,12 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 27.0,
+    "actual_away_score": 34.0,
+    "pickem_result": "LOSS",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_NYJ_NE",
@@ -775,7 +796,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 26.0,
+    "actual_away_score": 19.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_PIT_TB",
@@ -808,7 +835,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 19.0,
+    "actual_away_score": 26.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_06_TEN_IND",
@@ -841,7 +873,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 20.0,
+    "actual_away_score": 26.0,
+    "pickem_result": "LOSS",
+    "market_result": "LOSS",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_ARI_LA",
@@ -874,7 +912,11 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 16.0,
+    "actual_away_score": 18.0,
+    "pickem_result": "LOSS",
+    "model_only_result": "LOSS"
   },
   {
     "game_id": "2026_06_BUF_LV",
@@ -907,7 +949,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 30.0,
+    "actual_away_score": 33.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_LAC_KC",
@@ -940,7 +988,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 22.0,
+    "actual_away_score": 6.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_06_DAL_GB",
@@ -951,28 +1005,28 @@
     "away_team": "DAL",
     "kickoff_utc": "2026-10-19T00:20:00Z",
     "kickoff_source": "odds_api_commence_time",
-    "prediction_observed_utc": "2026-10-18T19:56:44Z",
-    "quote_observed_utc": "2026-10-18T19:56:43Z",
-    "lead_minutes": 263.27,
-    "lock_quality": "EARLY_PREGAME",
-    "pick_home": 1,
-    "pickem_pick": "GB",
-    "pickem_signal": "QUALIFIED",
-    "pickem_method": "MODEL_ONLY_NO_MARKET",
-    "confidence": 0.6166356336805248,
-    "model_home_prob": 0.6166356336805248,
-    "market_home_prob": null,
-    "market_favorite_pick_home": null,
-    "market_quote_usable": false,
-    "home_ml": -111.0,
-    "away_ml": -111.0,
+    "prediction_observed_utc": "2026-10-18T23:55:03Z",
+    "quote_observed_utc": "2026-10-18T23:55:03Z",
+    "lead_minutes": 24.95,
+    "lock_quality": "NEAR_KICKOFF",
+    "pick_home": 0,
+    "pickem_pick": "DAL",
+    "pickem_signal": "LEAN",
+    "pickem_method": "MARKET_FAVOURITE_ODDS",
+    "confidence": 0.5108342361863489,
+    "model_home_prob": 0.6117828542500617,
+    "market_home_prob": 0.4891657638136511,
+    "market_favorite_pick_home": 0,
+    "market_quote_usable": true,
+    "home_ml": -105.0,
+    "away_ml": -115.0,
     "ml_bookmaker": "pointsbetau",
-    "spread_home": -0.5,
+    "spread_home": 1.5,
     "spread_bookmaker": "pointsbetau",
-    "projected_margin": 3.152315785270683,
+    "projected_margin": 3.140491332985893,
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
-    "candidate_upset": false,
+    "candidate_upset": true,
     "verified_pre_kickoff": true
   },
   {
@@ -984,16 +1038,16 @@
     "away_team": "WAS",
     "kickoff_utc": "2026-10-20T00:15:00Z",
     "kickoff_source": "odds_api_commence_time",
-    "prediction_observed_utc": "2026-10-18T19:56:44Z",
-    "quote_observed_utc": "2026-10-18T19:56:43Z",
-    "lead_minutes": 1698.27,
+    "prediction_observed_utc": "2026-10-18T23:55:03Z",
+    "quote_observed_utc": "2026-10-18T23:55:03Z",
+    "lead_minutes": 1459.95,
     "lock_quality": "EARLY_PREGAME",
     "pick_home": 1,
     "pickem_pick": "SF",
     "pickem_signal": "STRONG",
     "pickem_method": "MARKET_FIRST_BLEND",
-    "confidence": 0.7863329671326601,
-    "model_home_prob": 0.8167313750455101,
+    "confidence": 0.784690827731072,
+    "model_home_prob": 0.8101628174391579,
     "market_home_prob": 0.7762001644950435,
     "market_favorite_pick_home": 1,
     "market_quote_usable": true,
@@ -1002,7 +1056,7 @@
     "ml_bookmaker": "pointsbetau",
     "spread_home": -7.5,
     "spread_bookmaker": "pointsbetau",
-    "projected_margin": 11.544600669080785,
+    "projected_margin": 11.318002635579449,
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
