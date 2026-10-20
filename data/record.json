@@ -4,57 +4,57 @@
     "ats": 0.64,
     "ats_research": 0.64
   },
-  "updated_utc": "2026-10-20T00:02:31Z",
+  "updated_utc": "2026-10-20T08:48:57Z",
   "2026_live": {
     "pickem_all": {
-      "wins": 15,
+      "wins": 16,
       "losses": 11,
       "pushes": 0,
-      "bets": 26,
-      "pct": 0.5769230769230769
+      "bets": 27,
+      "pct": 0.5925925925925926
     },
     "pickem_qualified": {
-      "wins": 9,
+      "wins": 10,
       "losses": 3,
       "pushes": 0,
-      "bets": 12,
-      "pct": 0.75
+      "bets": 13,
+      "pct": 0.7692307692307693
     },
     "pickem_strong": {
-      "wins": 3,
+      "wins": 4,
       "losses": 2,
       "pushes": 0,
-      "bets": 5,
-      "pct": 0.6
+      "bets": 6,
+      "pct": 0.6666666666666666
     },
     "ats_qualified": {
       "wins": 6,
-      "losses": 10,
+      "losses": 11,
       "pushes": 1,
-      "bets": 16,
-      "pct": 0.375
+      "bets": 17,
+      "pct": 0.35294117647058826
     },
     "ats_strong": {
       "wins": 5,
-      "losses": 6,
+      "losses": 7,
       "pushes": 1,
-      "bets": 11,
-      "pct": 0.45454545454545453
+      "bets": 12,
+      "pct": 0.4166666666666667
     },
     "market_first_comparison": {
-      "games": 22,
-      "market_wins": 14,
-      "model_wins": 14,
+      "games": 23,
+      "market_wins": 15,
+      "model_wins": 15,
       "net_correct_vs_favorites": 0,
-      "market_accuracy": 0.6363636363636364,
-      "model_accuracy_same_games": 0.6363636363636364,
+      "market_accuracy": 0.6521739130434783,
+      "model_accuracy_same_games": 0.6521739130434783,
       "note": "Identical game sample, frozen pre-kickoff bookmaker quotes and picks"
     }
   },
   "tracking": {
-    "locked_games": 28,
-    "archived_quotes": 24,
+    "locked_games": 42,
+    "archived_quotes": 37,
     "near_kickoff_locks": 28,
-    "verified_comparison_games": 22
+    "verified_comparison_games": 23
   }
 }
