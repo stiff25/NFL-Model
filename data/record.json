@@ -4,7 +4,7 @@
     "ats": 0.64,
     "ats_research": 0.64
   },
-  "updated_utc": "2026-10-24T12:42:32Z",
+  "updated_utc": "2026-10-25T13:13:10Z",
   "2026_live": {
     "pickem_all": {
       "wins": 17,
@@ -54,7 +54,7 @@
   "tracking": {
     "locked_games": 42,
     "archived_quotes": 37,
-    "near_kickoff_locks": 29,
+    "near_kickoff_locks": 30,
     "verified_comparison_games": 24
   }
 }
