@@ -1681,7 +1681,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 30.0,
+    "actual_away_score": 33.0,
+    "pickem_result": "LOSS",
+    "market_result": "LOSS",
+    "model_only_result": "LOSS"
   },
   {
     "game_id": "2026_08_ATL_TB",
@@ -1714,7 +1719,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 16.0,
+    "actual_away_score": 0.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_08_BAL_BUF",
@@ -1747,7 +1757,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 36.0,
+    "actual_away_score": 10.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_08_CLE_PIT",
@@ -1780,7 +1796,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 27.0,
+    "actual_away_score": 6.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_08_IND_JAX",
@@ -1813,7 +1835,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 42.0,
+    "actual_away_score": 7.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_08_LV_NYJ",
@@ -1846,7 +1874,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 33.0,
+    "actual_away_score": 38.0,
+    "pickem_result": "LOSS",
+    "market_result": "LOSS",
+    "model_only_result": "LOSS"
   },
   {
     "game_id": "2026_08_MIN_DET",
@@ -1879,7 +1912,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 19.0,
+    "actual_away_score": 15.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_08_TEN_CIN",
@@ -1912,7 +1951,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 43.0,
+    "actual_away_score": 36.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_08_LAC_LA",
@@ -1945,7 +1989,11 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 24.0,
+    "actual_away_score": 9.0,
+    "pickem_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_08_KC_DEN",
@@ -1978,7 +2026,12 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 28.0,
+    "actual_away_score": 24.0,
+    "pickem_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_08_NE_MIA",
@@ -2011,7 +2064,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 19.0,
+    "actual_away_score": 24.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_08_PHI_WAS",
@@ -2044,7 +2102,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 27.0,
+    "actual_away_score": 10.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_08_CHI_SEA",
@@ -2055,25 +2119,25 @@
     "away_team": "CHI",
     "kickoff_utc": "2026-11-03T01:20:00Z",
     "kickoff_source": "odds_api_commence_time",
-    "prediction_observed_utc": "2026-11-01T15:12:23Z",
-    "quote_observed_utc": "2026-11-01T15:12:22Z",
-    "lead_minutes": 2047.62,
+    "prediction_observed_utc": "2026-11-02T18:24:56Z",
+    "quote_observed_utc": "2026-11-02T18:24:55Z",
+    "lead_minutes": 415.07,
     "lock_quality": "EARLY_PREGAME",
     "pick_home": 1,
     "pickem_pick": "SEA",
     "pickem_signal": "QUALIFIED",
     "pickem_method": "MARKET_FIRST_BLEND",
-    "confidence": 0.6091362231072825,
-    "model_home_prob": 0.6088361890543522,
-    "market_home_prob": 0.6092362344582594,
+    "confidence": 0.6143133971195104,
+    "model_home_prob": 0.6093526937774222,
+    "market_home_prob": 0.6159669649002064,
     "market_favorite_pick_home": 1,
     "market_quote_usable": true,
-    "home_ml": -175.0,
-    "away_ml": 145.0,
+    "home_ml": -179.0,
+    "away_ml": 150.0,
     "ml_bookmaker": "pointsbetau",
     "spread_home": -3.5,
     "spread_bookmaker": "pointsbetau",
-    "projected_margin": 3.6758961681781583,
+    "projected_margin": 3.672956813619384,
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
