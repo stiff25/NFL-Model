@@ -2218,7 +2218,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 17.0,
+    "actual_away_score": 34.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_09_CLE_NO",
@@ -2251,7 +2256,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 23.0,
+    "actual_away_score": 22.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "LOSS",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_09_DAL_IND",
@@ -2284,7 +2295,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "STRONG",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 23.0,
+    "actual_away_score": 27.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_09_DEN_CAR",
@@ -2317,7 +2334,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 21.0,
+    "actual_away_score": 26.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_09_DET_MIA",
@@ -2350,7 +2373,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 9.0,
+    "actual_away_score": 19.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_09_LA_WAS",
@@ -2383,7 +2411,11 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 13.0,
+    "actual_away_score": 20.0,
+    "pickem_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_09_NYG_PHI",
@@ -2416,7 +2448,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 11.0,
+    "actual_away_score": 19.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_09_NYJ_KC",
@@ -2449,7 +2487,13 @@
     "ats_action": "BET AWAY SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 35.0,
+    "actual_away_score": 12.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_09_HOU_LAC",
@@ -2482,7 +2526,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 22.0,
+    "actual_away_score": 44.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_09_ARI_SEA",
@@ -2515,7 +2565,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 17.0,
+    "actual_away_score": 3.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_09_GB_NE",
@@ -2548,7 +2603,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 27.0,
+    "actual_away_score": 45.0,
+    "pickem_result": "LOSS",
+    "market_result": "LOSS",
+    "model_only_result": "LOSS",
+    "ats_result": "LOSS"
   },
   {
     "game_id": "2026_09_LV_SF",
@@ -2581,7 +2642,13 @@
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 38.0,
+    "actual_away_score": 17.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN",
+    "ats_result": "WIN"
   },
   {
     "game_id": "2026_09_TB_CHI",
@@ -2614,7 +2681,12 @@
     "ats_action": "PASS ATS",
     "ats_signal": "PASS",
     "candidate_upset": false,
-    "verified_pre_kickoff": true
+    "verified_pre_kickoff": true,
+    "actual_home_score": 27.0,
+    "actual_away_score": 24.0,
+    "pickem_result": "WIN",
+    "market_result": "WIN",
+    "model_only_result": "WIN"
   },
   {
     "game_id": "2026_09_BUF_MIN",
@@ -2625,25 +2697,25 @@
     "away_team": "BUF",
     "kickoff_utc": "2026-11-10T01:15:00Z",
     "kickoff_source": "odds_api_commence_time",
-    "prediction_observed_utc": "2026-11-08T15:15:04Z",
-    "quote_observed_utc": "2026-11-08T15:15:03Z",
-    "lead_minutes": 2039.93,
+    "prediction_observed_utc": "2026-11-09T18:51:09Z",
+    "quote_observed_utc": "2026-11-09T18:51:08Z",
+    "lead_minutes": 383.85,
     "lock_quality": "EARLY_PREGAME",
     "pick_home": 0,
     "pickem_pick": "BUF",
     "pickem_signal": "QUALIFIED",
     "pickem_method": "MARKET_FIRST_BLEND",
-    "confidence": 0.6018737947672324,
-    "model_home_prob": 0.41554321825995216,
-    "market_home_prob": 0.3923205342237062,
+    "confidence": 0.6100490615226941,
+    "model_home_prob": 0.40695487418048226,
+    "market_home_prob": 0.3842829599095805,
     "market_favorite_pick_home": 0,
     "market_quote_usable": true,
-    "home_ml": 140.0,
-    "away_ml": -182.0,
+    "home_ml": 145.0,
+    "away_ml": -189.0,
     "ml_bookmaker": "playup",
     "spread_home": 3.5,
     "spread_bookmaker": "playup",
-    "projected_margin": -1.8180620718238667,
+    "projected_margin": -1.9906594497305354,
     "ats_action": "BET HOME SPREAD",
     "ats_signal": "QUALIFIED",
     "candidate_upset": false,
