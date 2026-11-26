@@ -4,21 +4,21 @@
     "ats": 0.64,
     "ats_research": 0.64
   },
-  "updated_utc": "2026-11-25T18:40:49Z",
+  "updated_utc": "2026-11-26T18:27:08Z",
   "2026_live": {
     "pickem_all": {
-      "wins": 69,
+      "wins": 70,
       "losses": 28,
       "pushes": 0,
-      "bets": 97,
-      "pct": 0.711340206185567
+      "bets": 98,
+      "pct": 0.7142857142857143
     },
     "pickem_qualified": {
-      "wins": 48,
+      "wins": 49,
       "losses": 15,
       "pushes": 0,
-      "bets": 63,
-      "pct": 0.7619047619047619
+      "bets": 64,
+      "pct": 0.765625
     },
     "pickem_strong": {
       "wins": 23,
